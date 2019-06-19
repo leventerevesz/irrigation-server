@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Active programs</h3>
+<ul>
+    <li>
+        program 1
+    </li>
+    <li>
+        program 2
+    </li>
+</ul>
+
+{% url "programs:overview" %}
+{% url "home:homepage" %}
+
+{% endblock %}

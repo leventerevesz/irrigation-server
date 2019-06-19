@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="." method="POST">{% csrf_token %}
+
+    {{ form.non_field_errors }}
+    {{ form.program_type.errors }}
+    {{ form.program_type }}
+
+    {{ form.name.errors }}
+    <p>{{ form.name.label }}: {{ form.name }}</p>
+
+    {{ form.description.errors }}
+    <p>{{ form.description.label }}: {{ form.description }}</p>
+
+    {{ form.date_start.errors }}
+    <p>{{ form.date_start.label }}: {{ form.date_start }}</p>
+
+    {{ form.date_end.errors }}
+    <p>{{ form.date_end.label }}: {{ form.date_end }}</p>
+
+    {{ form.days_of_week.errors }}
+    <p>
+        {{ form.days_of_week.label }}:
+        <ul style="padding-left:0">
+            {% for day in form.days_of_week %}
+            <li style="display:inline">
+                <span style="white-space:nowrap">
+                    <span>{{ day.tag }}</span>
+                    <label for="{{ day.id_for_label }}">{{ day.choice_label|upper|slice:":3" }}</label>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </p>
+
+    {{ form.time_start.errors }}
+    <p>{{ form.time_start.label }}: {{ form.time_start }}</p>
+
+    {{ form.time_end.errors }}
+    <p>{{ form.time_end.label }}: {{ form.time_end }}</p>
+
+    {{ form.duration.errors }}
+    <p>{{ form.duration.label }}: {{ form.duration }}</p>
+
+    {{ form.priority.errors }}
+    <p>{{ form.priority.label }}: {{ form.priority }}</p>
+
+    {{ form.enabled.errors }}
+    <p>{{ form.enabled.label }}: {{ form.enabled }}</p>
+
+    <a href="../" class="w3-button w3-round w3-light-grey w3-text-dark-grey w3-border w3-small w3-bold">CANCEL</a>
+    <input type="submit" value="SAVE"
+        class="w3-button w3-round w3-theme w3-border w3-border-theme w3-hover-border-gray w3-small w3-bold">
+</form>
+
+{% endblock %}

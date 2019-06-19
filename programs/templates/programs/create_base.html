@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="." method="POST">{% csrf_token %}
+
+    {{ form.non_field_errors }}
+    {{ form.program_type.errors }}
+    {{ form.program_type }}
+
+    <div class="">
+        <div class="w3-cell-row">
+            <div class="w3-padding w3-cell w3-cell-top w3-mobile form-label">{{ form.name.label }}</div>
+            <div class="w3-padding w3-cell w3-cell-top w3-mobile">{{ form.name.errors }}{{ form.name }}</div>
+        </div>
+        <div class="w3-cell-row">
+            <div class="w3-padding w3-cell w3-cell-top w3-mobile form-label">{{ form.description.label }}</div>
+            <div class="w3-padding w3-cell w3-cell-top w3-mobile">{{ form.description.errors }}{{ form.description }}</div>
+        </div>
+        <div class="w3-cell-row">
+            <div class="w3-padding w3-cell w3-cell-top form-label">{{ form.date_start.label }}</div>
+            <div class="w3-padding w3-cell w3-cell-top">{{ form.date_start.errors }}{{ form.date_start }}</div>
+        </div>
+
+        {% block extra_fields %}
+
+        {% endblock %}
+
+        <div class="w3-cell-row">
+            <div class="w3-padding w3-cell w3-cell-top form-label">{{ form.duration.label }}</div>
+            <div class="w3-padding w3-cell w3-cell-top">{{ form.duration.errors }}{{ form.duration }}</div>
+        </div>
+        <div class="w3-cell-row">
+            <div class="w3-padding w3-cell w3-cell-top form-label">{{ form.priority.label }}</div>
+            <div class="w3-padding w3-cell w3-cell-top">{{ form.priority.errors }}{{ form.priority }}</div>
+        </div>
+        <div class="w3-cell-row">
+            <div class="w3-padding w3-cell w3-cell-top form-label">{{ form.enabled.label }}</div>
+            <div class="w3-padding w3-cell w3-cell-top">{{ form.enabled.errors }}{{ form.enabled }}</div>
+        </div>
+
+    </div>
+    <div class="w3-margin-top">
+        <a href="{% url 'programs:home' %}" class="w3-button w3-round w3-light-grey w3-text-dark-grey w3-border w3-small w3-bold">CANCEL</a>
+        <input type="submit" value="SAVE"
+            class="w3-button w3-round w3-theme w3-border w3-border-theme w3-hover-border-gray w3-small w3-bold">
+    </div>
+</form>
+
+{% endblock %}

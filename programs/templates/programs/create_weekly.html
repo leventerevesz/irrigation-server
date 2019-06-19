@@ -1,0 +1,34 @@
+{% extends 'programs/create_base.html' %}
+
+{% block extra_fields %}
+
+<div class="w3-cell-row">
+    <div class="w3-padding w3-cell w3-cell-top form-label">{{ form.date_end.label }}</div>
+    <div class="w3-padding w3-cell w3-cell-top">{{ form.date_end.errors }}{{ form.date_end }}</div>
+</div>
+<div class="w3-cell-row">
+    <div class="w3-padding w3-cell w3-cell-top w3-mobile form-label">{{ form.days_of_week.label }}</div>
+    <div class="w3-padding w3-cell w3-cell-top w3-mobile">
+        {{ form.days_of_week.errors }}
+        <ul style="padding-left:0">
+            {% for day in form.days_of_week %}
+            <li style="display:inline">
+                <span style="white-space:nowrap">
+                    <span>{{ day.tag }}</span>
+                    <label for="{{ day.id_for_label }}">{{ day.choice_label|upper|slice:":3" }}</label>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="w3-cell-row">
+    <div class="w3-padding w3-cell w3-cell-top form-label">{{ form.time_start.label }}</div>
+    <div class="w3-padding w3-cell w3-cell-top">{{ form.time_start.errors }}{{ form.time_start }}</div>
+</div>
+<div class="w3-cell-row">
+    <div class="w3-padding w3-cell w3-cell-top form-label">{{ form.time_end.label }}</div>
+    <div class="w3-padding w3-cell w3-cell-top">{{ form.time_end.errors }}{{ form.time_end }}</div>
+</div>
+
+{% endblock %}

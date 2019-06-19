@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="w3-table w3-striped w3-border w3-margin-top">
+    <thead>
+        <tr class="w3-light-grey">
+            <th>id</th>
+            <th>name</th>
+            <th class="w3-center">enabled</th>
+            <th class="w3-center">details</th>
+        </tr>
+    </thead>
+    {% for object in object_list %}
+    <tr>
+        <td>{{ object.id }}</td>
+        <td>{{ object.name }}</td>
+        <td class="w3-center"><input type="checkbox" disabled {% if object.enabled %} checked {% endif %}>
+        </td>
+        <td class="w3-center">
+            <a class="w3-button w3-large w3-round" style="padding-bottom:0; padding-top:0;"
+                href="{{ object.get_absolute_url }}">&#x1f4c4;</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="w3-bar w3-margin-top">
+    <div class="w3-right">
+        <a href="{% url 'programs:create' %}"
+            class="w3-bar-item w3-button w3-margin-left w3-round w3-theme w3-border w3-small w3-bold">CREATE</a>
+    </div>
+</div>
+
+
+{% endblock %}

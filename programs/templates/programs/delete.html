@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="." method="POST">{% csrf_token %}
+    <h2>Do you want to delete this program?</h2>
+    <p>Instead of deleting it permanently, you can also disable the program.</p>
+    <a href="../" class="w3-button w3-round w3-light-grey w3-text-dark-grey w3-border w3-small w3-bold">CANCEL</a>
+    <input type="submit" value="DELETE" class="w3-button w3-round w3-red w3-border w3-border-red w3-hover-border-gray w3-small w3-bold">
+</form>
+
+{% endblock %}

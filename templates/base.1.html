@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'w3.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'w3-theme.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'w3-custom.css' %}">
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="w3-bar w3-theme-d3">
+        <div class="w3-content">
+            <div class="w3-bar-item w3-xxlarge w3-mono w3-padding-16">
+                IrrigationProject
+            </div>
+            <div class="w3-bar-item w3-bar w3-small w3-right navbar-margin-top">
+                {% include 'navbar.html' %}
+            </div>
+        </div>
+    </header>
+
+    <div class="w3-bar w3-theme">
+        <div class="w3-container w3-content">
+            <div class="">
+                <h1 class="w3-xlarge">{{ pagetitle }}</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="w3-container">
+        <div class="w3-container w3-content">
+            {% block content %}
+            Main content of the page
+            ...
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
+
+</html>

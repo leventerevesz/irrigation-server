@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="w3-container w3-padding w3-theme w3-margin-top">
+    <h3 class="w3-bold">{{ object.name }}</h3>
+    {{ object.description }}
+</div>
+    
+    <table class="w3-table w3-striped w3-border">
+        <tr>
+        <th>type</th>
+        <td>{{ object.program_type }}</td>
+    </tr>
+    <tr>
+        <th>start</th>
+        <td>{{ object.date_start }}</td>
+    </tr>
+    <tr>
+        <th>end</th>
+        <td>{{ object.date_end }}</td>
+    </tr>
+    {% if object.program_type == "weekly" %}
+    <tr>
+        <th>days of week</th>
+        <td>{{ object.days_of_week }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+        <th>time start</th>
+        <td>{{ object.time_start }}</td>
+    </tr>
+    <tr>
+        <th>time end</th>
+        <td>{{ object.time_end }}</td>
+    </tr>
+    <tr>
+        <th>duration</th>
+        <td>{{ object.duration }}</td>
+    </tr>
+    {% if object.program_type == "periodic" %}
+    <tr>
+        <th>period</th>
+        <td>{{ object.period }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+        <th>priority</th>
+        <td>{{ object.priority }}</td>
+    </tr>
+    <tr>
+        <th>enabled</th>
+        <td><input type="checkbox" disabled
+            {% if object.enabled %} checked {% endif %} ></td>
+    </tr>
+</table>
+
+<div class="w3-bar w3-margin-top">
+    <div class="w3-right">
+        <a href="./update"
+        class="w3-bar-item w3-button w3-margin-left w3-round w3-light-grey w3-text-dark-grey w3-border w3-small w3-bold">EDIT</a>
+        <a href="./delete"
+        class="w3-bar-item w3-button w3-margin-left w3-round w3-light-grey w3-text-dark-grey w3-border w3-small w3-bold">DELETE</a>
+    </div>
+</div>
+
+{% endblock %}

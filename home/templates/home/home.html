@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Current status of valves</h2>
+<ul>
+    <li>valve 1 [on]</li>
+    <li>valve 2 [off]</li>
+    <li>valve 3 [on]</li>
+    <li>valve 4 [off]</li>
+</ul>
+
+<h2>Upcoming events</h2>
+<table>
+    <tr>
+        <th>event</th>
+        <th>time</th>
+    </tr>
+    <tr>
+        <td>run-once test event 1 start</td>
+        <td>2019-06-14 16:40</td>
+    </tr>
+    <tr>
+        <td>run-once test event 1 finish</td>
+        <td>2019-06-14 18:20</td>
+    </tr>
+</table>
+
+<h2>Log</h2>
+<table>
+    <tr>
+        <th>entry</th>
+        <th>time</th>
+    </tr>
+    <tr>
+        <td>water level 60%</td>
+        <td>2019-06-14 16:40</td>
+    </tr>
+    <tr>
+        <td>run-once test event 1 finish</td>
+        <td>2019-06-13 18:20</td>
+    </tr>
+</table>
+<a href="#">view logs</a>
+<h2>Weather</h2>
+Sunny, 28°C
+
+{% endblock %}

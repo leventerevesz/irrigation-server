@@ -1,0 +1,10 @@
+{% extends 'programs/create_base.html' %}
+
+{% block extra_fields %}
+
+<div class="w3-cell-row">
+    <div class="w3-padding w3-cell w3-cell-top form-label">{{ form.time_start.label }}</div>
+    <div class="w3-padding w3-cell w3-cell-top">{{ form.time_start.errors }}{{ form.time_start }}</div>
+</div>
+
+{% endblock %}

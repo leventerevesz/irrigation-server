@@ -1,0 +1,37 @@
+.w3-content {
+    max-width: 1250px;
+}
+
+.w3-mono {
+    font-family: "Courier New", Courier, monospace;
+}
+
+.w3-bold {
+    font-weight: bold;
+}
+
+.headerheight {
+    height: 52px;
+}
+
+.sidebar {
+    width: 200px;
+}
+
+.form-label {
+    width: 10em;
+}
+
+ul.errorlist {
+    padding-left: 0;
+}
+.errorlist li {
+    color: red;
+    list-style-type: none;
+    font-size: 10pt;
+}
+
+.errorlist + input {
+    /* Red border for failed input fields */
+    border-color: red!important;
+}

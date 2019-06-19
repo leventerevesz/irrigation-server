@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'w3.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'w3-theme.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'w3-custom.css' %}">
+
+</head>
+
+<body class="w3-light-gray">
+
+    <div class="w3-content w3-white">
+        <div class="w3-cell-row">
+
+
+            <div class="w3-cell w3-bar-block w3-theme-grey w3-hide-small sidebar">
+                <header class="w3-container w3-bar w3-theme-d3 headerheight">
+                    <div class="w3-bar-item w3-xlarge w3-mono">
+                        Irrigation
+                    </div>
+                </header>
+                <div class="w3-container w3-theme-grey">
+                    <div class="w3-padding-32 w3-center">
+                        [logo]
+                    </div>
+                </div>
+                <div class="w3-container w3-theme-dark-grey w3-padding w3-small w3-bold">
+                    Navigation
+                </div>
+                <div class="w3-small w3-theme-grey">
+                    {% include 'navbar.html' %}
+                </div>
+            </div>
+
+
+            <div class="w3-cell">
+                <header class="w3-theme-d3 headerheight">
+                    <div class="w3-bar">
+                        <div class="w3-bar-item">
+                            <h1 style="font-size: 18pt; margin: 0;"> > {{ pagetitle }}</h1>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="w3-container w3-content w3-padding">
+                    {% block content %}
+                    Main content of the page
+                    ...
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
