@@ -13,6 +13,14 @@
         <td>{{ object.program_type }}</td>
     </tr>
     <tr>
+        <th>channels</th>
+        <td>
+            {% for channel in object.channels.all %}
+                ({{ channel.id }}) {{ channel.name }} <br>
+            {% endfor %}
+        </td>
+    </tr>
+    <tr>
         <th>start</th>
         <td>{{ object.date_start }}</td>
     </tr>
@@ -29,10 +37,6 @@
     <tr>
         <th>time start</th>
         <td>{{ object.time_start }}</td>
-    </tr>
-    <tr>
-        <th>time end</th>
-        <td>{{ object.time_end }}</td>
     </tr>
     <tr>
         <th>duration</th>

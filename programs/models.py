@@ -29,16 +29,17 @@ class Program(models.Model):
         choices=PROGRAM_TYPES,
         default="run-once"
     )
+    zones = models.ManyToManyField("zones.Zone", blank=True)
     date_start = models.DateField()
     date_end = models.DateField(blank=True, null=True)
-    days_of_week = models.CharField(max_length=25, default="")
+    days_of_week = models.CharField(max_length=25, default="", blank=True)
     time_start = models.TimeField(blank=True, null=True)
-    time_end = models.TimeField(blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)
-    period = models.DurationField(blank=True, null=True)
+    period = models.PositiveSmallIntegerField(blank=True, null=True)
     priority = models.PositiveSmallIntegerField(
         default=10,
         validators=[MinValueValidator(1), MaxValueValidator(10)])
+    can_be_skipped = models.BooleanField(default=True)
     enabled = models.BooleanField(default=True)
 
     def __str__(self):

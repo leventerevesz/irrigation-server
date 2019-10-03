@@ -17,7 +17,6 @@ class ProgramModelForm(forms.ModelForm):
             "date_end",
             "days_of_week",
             "time_start",
-            "time_end",
             "duration",
             "period",
             "priority",
@@ -52,11 +51,6 @@ class ProgramModelForm(forms.ModelForm):
             "style": "width:15em; display:inline-block;",
             "placeholder": "(hh:)mm:ss"
         })
-        self.fields["time_end"].widget.attrs.update({
-            "class": "w3-input w3-border",
-            "style": "width:15em; display:inline-block;",
-            "placeholder": "(hh:)mm:ss"
-        })
         self.fields["duration"].widget.attrs.update({
             "class": "w3-input w3-border",
             "style": "width:15em; display:inline-block;",
@@ -82,15 +76,6 @@ class ProgramModelForm(forms.ModelForm):
                 raise forms.ValidationError(
                     "This field is required for the selected program type.")
         return time_start
-
-    def clean_time_end(self):
-        "Raise error if field is required but empty"
-        time_end = self.cleaned_data.get("time_end")
-        if self.cleaned_data.get("program_type") in ("weekly",):
-            if time_end is None:
-                raise forms.ValidationError(
-                    "This field is required for the selected program type.")
-        return time_end
 
     def clean_duration(self):
         "Raise error if field is required but empty"
@@ -176,7 +161,7 @@ class PeriodicProgramModelForm(ProgramFormMixin, forms.ModelForm):
         model = Program
         fields = [
             "name", "description", "program_type", "date_start", "date_end",
-            "time_start", "time_end", "duration", "period", "priority", "enabled"
+            "time_start", "duration", "period", "priority", "enabled"
         ]
         widgets = {
             "description": forms.Textarea(),
@@ -191,14 +176,10 @@ class PeriodicProgramModelForm(ProgramFormMixin, forms.ModelForm):
             "class": "w3-input w3-border",
             "placeholder": "yyyy-mm-dd",
             "style": "max-width: 10em"})
-        self.fields['time_end'].widget.attrs.update({
-            "class": "w3-input w3-border",
-            "placeholder": "(hh:)mm:ss",
-            "style": "max-width: 10em"})
         self.fields['period'].required = True
         self.fields['period'].widget.attrs.update({
             "class": "w3-input w3-border",
-            "placeholder": "(d) (hh:)mm:ss",
+            "placeholder": "days",
             "style": "max-width: 10em"})
 
 
@@ -214,7 +195,7 @@ class WeeklyProgramModelForm(ProgramFormMixin, forms.ModelForm):
         model = Program
         fields = [
             "name", "description", "program_type", "date_start", "date_end",
-            "days_of_week", "time_start", "time_end", "duration", "priority", "enabled"
+            "days_of_week", "time_start", "duration", "priority", "enabled"
         ]
         widgets = {
             "description": forms.Textarea(),
@@ -231,10 +212,6 @@ class WeeklyProgramModelForm(ProgramFormMixin, forms.ModelForm):
             "style": "max-width: 10em"})
         self.fields['days_of_week'].widget.attrs.update({
             "class": "w3-check"})
-        self.fields['time_end'].widget.attrs.update({
-            "class": "w3-input w3-border",
-            "placeholder": "(hh:)mm:ss",
-            "style": "max-width: 10em"})
 
     def clean_days_of_week(self):
         "Transforms the List of selected days to a String"

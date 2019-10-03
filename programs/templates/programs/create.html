@@ -2,10 +2,8 @@
 
 {% block content %}
 
-<form action="." method="POST">{% csrf_token %}
-    {{ form.as_p }}
-    <a href="../" class="w3-button w3-round w3-light-grey w3-text-dark-grey w3-border w3-small w3-bold">CANCEL</a>
-    <input type="submit" value="SAVE" class="w3-button w3-round w3-theme w3-border w3-border-theme w3-hover-border-gray w3-small w3-bold">
-</form>
+<a href="{% url 'programs:create-run-once' %}" class="w3-button w3-round w3-light-grey w3-text-dark-grey w3-border w3-small w3-bold"> Run-Once </a>
+<a href="{% url 'programs:create-periodic' %}" class="w3-button w3-round w3-light-grey w3-text-dark-grey w3-border w3-small w3-bold"> Periodic </a>
+<a href="{% url 'programs:create-weekly' %}"   class="w3-button w3-round w3-light-grey w3-text-dark-grey w3-border w3-small w3-bold"> Weekly </a>
 
 {% endblock %}

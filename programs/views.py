@@ -1,7 +1,8 @@
 """programs views"""
 
 from django.urls import reverse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, get_object_or_404
+from django.views import View
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -61,24 +62,21 @@ class ProgramDetailView(DetailView):
         return context
 
 
-class ProgramCreateView(CreateView):
+class ProgramCreateView(View):
     "Create a new program"
     template_name = "programs/create.html"
-    form_class = ProgramModelForm
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # additional context
-        context["pagetitle"] = "Create New Program"
-        return context
-
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return super().form_valid(form)
+    def get(self, request, *args, **kwargs):
+        "GET request handler"
+        context = {
+            "pagetitle": "Create New Program"
+        }
+        return render(request, self.template_name, context)
 
 
 class ProgramUpdateView(UpdateView):
     "Update a program"
+    #TODO switch on program type 
     template_name = "programs/create.html"
     form_class = ProgramModelForm
 

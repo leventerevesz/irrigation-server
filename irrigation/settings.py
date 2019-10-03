@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'controllers',
     'home',
     'programs',
+    'schedules',
+    'zones',
 ]
 
 MIDDLEWARE = [
