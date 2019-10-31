@@ -15,7 +15,7 @@ class RequestedRun(models.Model):
     duration = models.DurationField()
 
     def __str__(self):
-        return f"({self.id}) Z{self.zone.id} {self.start}"
+        return f"({self.id}) [{self.program.id}] {self.program.name} - [{self.zone.id}] {self.zone.name} @ {self.start}"
 
 
 class ScheduledRun(models.Model):
