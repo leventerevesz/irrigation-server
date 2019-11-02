@@ -9,7 +9,7 @@ import sys
 
 class ProgramTestCase(TestCase):
     "Program tests"
-    fixtures = ['programs']
+    fixtures = ['zones', 'programs']
 
     def test_fixture_loading(self):
         p = Program.objects.get(pk=1)

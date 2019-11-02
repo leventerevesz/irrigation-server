@@ -1,0 +1,429 @@
+[
+{
+    "model": "sessions.session",
+    "pk": "b9j498s9n71ofpobt78ip66wk5jycjar",
+    "fields": {
+        "session_data": "ODE5MjU3NDhiYTkwOGE0NjM1MTI0NTk0NWZkNzZjNDVjOWRiM2E1Yjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI1YTUwNjZhYTBkMjQ4NmNjMzllMTY4NzFhNDQ4MmVlZGUxZDNiYmY2In0=",
+        "expire_date": "2019-11-14T10:50:33.808"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "d8rab5zn6iv788hc8mhlt7a2yesf2sxx",
+    "fields": {
+        "session_data": "ODE5MjU3NDhiYTkwOGE0NjM1MTI0NTk0NWZkNzZjNDVjOWRiM2E1Yjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI1YTUwNjZhYTBkMjQ4NmNjMzllMTY4NzFhNDQ4MmVlZGUxZDNiYmY2In0=",
+        "expire_date": "2019-07-23T05:48:58.724"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "eu9tjjdcqylr2oe3p582fo2zs43qshfz",
+    "fields": {
+        "session_data": "ODE5MjU3NDhiYTkwOGE0NjM1MTI0NTk0NWZkNzZjNDVjOWRiM2E1Yjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI1YTUwNjZhYTBkMjQ4NmNjMzllMTY4NzFhNDQ4MmVlZGUxZDNiYmY2In0=",
+        "expire_date": "2019-06-28T08:44:50.985"
+    }
+},
+{
+    "model": "controllers.controller",
+    "pk": 1,
+    "fields": {
+        "name": "ESP8266_kut",
+        "location": "F\u0151 u. 145 k\u00fatakna",
+        "description": "",
+        "channel_count": 4,
+        "enabled": true
+    }
+},
+{
+    "model": "controllers.channel",
+    "pk": 1,
+    "fields": {
+        "name": "nagylugas 1",
+        "location": "F\u0151 u. 145",
+        "description": "csepegtet\u0151\r\nals\u00f3 szakasz",
+        "controller": 1,
+        "channel_no": 1,
+        "enabled": true
+    }
+},
+{
+    "model": "controllers.channel",
+    "pk": 2,
+    "fields": {
+        "name": "kislugas 1",
+        "location": "kislugas",
+        "description": "csepegtet\u0151",
+        "controller": 1,
+        "channel_no": 2,
+        "enabled": true
+    }
+},
+{
+    "model": "controllers.channel",
+    "pk": 3,
+    "fields": {
+        "name": "spritz di\u00f3fa f\u00f6l\u00f6tt",
+        "location": "di\u00f3fa f\u00f6l\u00f6tt, parcella 2D",
+        "description": "",
+        "controller": 1,
+        "channel_no": 3,
+        "enabled": true
+    }
+},
+{
+    "model": "controllers.channel",
+    "pk": 4,
+    "fields": {
+        "name": "nagylugas 2",
+        "location": "nagylugas",
+        "description": "",
+        "controller": 1,
+        "channel_no": 4,
+        "enabled": true
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 2,
+    "fields": {
+        "name": "keddenk\u00e9nt 18",
+        "description": "minden kedden 18 \u00f3rakor lugas",
+        "program_type": "weekly",
+        "date_start": "2019-06-17",
+        "date_end": null,
+        "days_of_week": "1",
+        "time_start": "18:00:00",
+        "duration": "01:30:00",
+        "period": 3,
+        "priority": 10,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 3,
+    "fields": {
+        "name": "program 3",
+        "description": "my new program 3",
+        "program_type": "run-once",
+        "date_start": "2019-10-31",
+        "date_end": null,
+        "days_of_week": "1",
+        "time_start": "11:20:00",
+        "duration": "00:12:00",
+        "period": null,
+        "priority": 10,
+        "can_be_skipped": true,
+        "enabled": false,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 6,
+    "fields": {
+        "name": "additional run-once program",
+        "description": "Hehehe",
+        "program_type": "run-once",
+        "date_start": "2019-10-31",
+        "date_end": null,
+        "days_of_week": "1",
+        "time_start": "11:20:00",
+        "duration": "00:02:00",
+        "period": null,
+        "priority": 10,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 8,
+    "fields": {
+        "name": "saturday progr",
+        "description": "idk",
+        "program_type": "run-once",
+        "date_start": "2019-10-31",
+        "date_end": null,
+        "days_of_week": "1",
+        "time_start": "11:30:00",
+        "duration": "00:02:00",
+        "period": null,
+        "priority": 10,
+        "can_be_skipped": true,
+        "enabled": false,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 9,
+    "fields": {
+        "name": "Nagyon nagyon hossz\u00fa nev\u0171 program de annyira hogy m\u00e1r nem is f\u00e9r bele a boxba",
+        "description": "T\u00e9nyleg ilyet ne csin\u00e1ljon senki.",
+        "program_type": "weekly",
+        "date_start": "2019-06-17",
+        "date_end": null,
+        "days_of_week": "1",
+        "time_start": "18:00:00",
+        "duration": "01:30:00",
+        "period": null,
+        "priority": 10,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 12,
+    "fields": {
+        "name": "weekly4",
+        "description": "",
+        "program_type": "weekly",
+        "date_start": "2019-07-17",
+        "date_end": null,
+        "days_of_week": "1234567",
+        "time_start": "04:39:04",
+        "duration": "00:05:30",
+        "period": null,
+        "priority": 10,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 13,
+    "fields": {
+        "name": "kedden nem",
+        "description": "",
+        "program_type": "weekly",
+        "date_start": "2019-06-16",
+        "date_end": null,
+        "days_of_week": "134567",
+        "time_start": "04:36:52",
+        "duration": "00:02:00",
+        "period": null,
+        "priority": 10,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 14,
+    "fields": {
+        "name": "weekly6",
+        "description": "With the new form template.",
+        "program_type": "weekly",
+        "date_start": "2019-07-08",
+        "date_end": "2019-10-03",
+        "days_of_week": "12567",
+        "time_start": "06:00:00",
+        "duration": "2 00:00:00",
+        "period": null,
+        "priority": 4,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 19,
+    "fields": {
+        "name": "hali2",
+        "description": "",
+        "program_type": "weekly",
+        "date_start": "2019-09-08",
+        "date_end": null,
+        "days_of_week": "2345",
+        "time_start": "11:10:00",
+        "duration": "00:02:00",
+        "period": null,
+        "priority": 10,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 24,
+    "fields": {
+        "name": "asd",
+        "description": "asd",
+        "program_type": "weekly",
+        "date_start": "2019-09-08",
+        "date_end": null,
+        "days_of_week": "346",
+        "time_start": "11:10:00",
+        "duration": "00:02:00",
+        "period": null,
+        "priority": 10,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 27,
+    "fields": {
+        "name": "teszt99",
+        "description": "asdasdada",
+        "program_type": "weekly",
+        "date_start": "2019-09-08",
+        "date_end": "2019-10-03",
+        "days_of_week": "2567",
+        "time_start": "06:00:00",
+        "duration": "00:12:00",
+        "period": null,
+        "priority": 8,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 28,
+    "fields": {
+        "name": "Mai program",
+        "description": "hello hello hello",
+        "program_type": "run-once",
+        "date_start": "2019-10-31",
+        "date_end": null,
+        "days_of_week": "1",
+        "time_start": "13:12:00",
+        "duration": "00:15:00",
+        "period": null,
+        "priority": 6,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": [
+            1
+        ]
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 29,
+    "fields": {
+        "name": "lej\u00e1rt program",
+        "description": "",
+        "program_type": "weekly",
+        "date_start": "2019-07-10",
+        "date_end": "2019-07-15",
+        "days_of_week": "1234567",
+        "time_start": "04:38:27",
+        "duration": "00:02:00",
+        "period": null,
+        "priority": 10,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 30,
+    "fields": {
+        "name": "periodic 0714 every2days",
+        "description": "",
+        "program_type": "periodic",
+        "date_start": "2019-07-14",
+        "date_end": null,
+        "days_of_week": "",
+        "time_start": "06:23:11",
+        "duration": "00:05:00",
+        "period": 2,
+        "priority": 10,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": []
+    }
+},
+{
+    "model": "programs.program",
+    "pk": 31,
+    "fields": {
+        "name": "periodic 0710 every3days",
+        "description": "",
+        "program_type": "periodic",
+        "date_start": "2019-07-10",
+        "date_end": "2019-09-01",
+        "days_of_week": "",
+        "time_start": "09:21:09",
+        "duration": "00:08:10",
+        "period": 3,
+        "priority": 10,
+        "can_be_skipped": true,
+        "enabled": true,
+        "zones": []
+    }
+},
+{
+    "model": "schedules.requestedrun",
+    "pk": 1,
+    "fields": {
+        "program": 28,
+        "zone": 1,
+        "start": "2019-10-31T13:12:00",
+        "duration": "00:15:00"
+    }
+},
+{
+    "model": "schedules.requestedrun",
+    "pk": 2,
+    "fields": {
+        "program": 28,
+        "zone": 1,
+        "start": "2019-10-31T13:12:00",
+        "duration": "00:15:00"
+    }
+},
+{
+    "model": "schedules.requestedrun",
+    "pk": 3,
+    "fields": {
+        "program": 28,
+        "zone": 1,
+        "start": "2019-10-31T13:12:00",
+        "duration": "00:15:00"
+    }
+},
+{
+    "model": "zones.zone",
+    "pk": 1,
+    "fields": {
+        "name": "nagylugas",
+        "location": "",
+        "description": "",
+        "enabled": true,
+        "channels": [
+            1,
+            4
+        ]
+    }
+},
+{
+    "model": "zones.zone",
+    "pk": 2,
+    "fields": {
+        "name": "kislugas",
+        "location": "",
+        "description": "",
+        "enabled": true,
+        "channels": [
+            2
+        ]
+    }
+}
+]

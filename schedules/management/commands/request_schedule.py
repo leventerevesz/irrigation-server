@@ -5,12 +5,14 @@ from programs.models import Program
 from schedules.models import RequestedRun
 
 
-
 class Command(BaseCommand):
     help = "Creates a scheduled run for all irrigation events due today"
 
+    def add_arguments(self, parser):
+        parser.add_argument("--date", help="the day to create a schedule for")
+
     def handle(self, *args, **options):
-        thedate = date(2019, 10, 31)
+        thedate = self._get_date(options.get("date"))
 
         qs1 = self.get_runonce_programs(thedate)
         qs2 = self.get_periodic_programs(thedate)
@@ -18,16 +20,28 @@ class Command(BaseCommand):
 
         queryset = qs1.union(qs2, qs3)
 
+        program_count = 0
+        entry_count = 0
+
         for program in queryset:
-            self.stdout.write("Processing [{}] {} ...".format(program.id, program.name))
+            program_count += 1
             start = datetime.combine(date=thedate, time=program.time_start)
             for zone in program.zones.all():
-                self.stdout.write("  -> zone {}".format(zone.name))
+                entry_count += 1
                 entry = RequestedRun(program=program, zone=zone, start=start, duration=program.duration)
                 entry.save()
 
-        self.stdout.write(self.style.SUCCESS("All OK."))
+        self.stdout.write(f"Date: {thedate}")
+        self.stdout.write(f"Found {program_count} programs.")
+        self.stdout.write(f"Created {entry_count} schedule entries.")
+        self.stdout.write(self.style.SUCCESS("SUCCESS."))
 
+    def _get_date(self, datestr):
+        if datestr is None:
+            thedate = date.today()
+        else:
+            thedate = date.fromisoformat(datestr)
+        return thedate
 
     def get_runonce_programs(self, thedate):
         programs = Program.objects.filter(enabled=True, program_type="run-once", date_start=thedate)

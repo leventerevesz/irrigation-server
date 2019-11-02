@@ -1,12 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
-## REQURED_SCHEDULE
-# Foreign Key Program
-#  - Foreign Key Channel
-# Start date, time
-# Duration
 
 class RequestedRun(models.Model):
     program = models.ForeignKey("programs.Program", on_delete=models.CASCADE)

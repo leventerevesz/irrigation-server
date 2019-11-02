@@ -1,0 +1,46 @@
+[
+{
+    "model": "zones.zone",
+    "pk": 1,
+    "fields": {
+        "name": "zona1",
+        "location": "location1",
+        "description": "Description of zone1",
+        "channels": [],
+        "enabled": true
+    }
+},
+{
+    "model": "zones.zone",
+    "pk": 2,
+    "fields": {
+        "name": "zone2",
+        "location": "location2",
+        "description": "Description of zone2",
+        "channels": [],
+        "enabled": true
+    }
+},
+{
+    "model": "zones.zone",
+    "pk": 3,
+    "fields": {
+        "name": "zone3",
+        "location": "location3",
+        "description": "Description of zone3",
+        "channels": [],
+        "enabled": true
+    }
+},
+{
+    "model": "zones.zone",
+    "pk": 99,
+    "fields": {
+        "name": "disabled zone",
+        "location": "location",
+        "description": "This zone is disabled",
+        "channels": [],
+        "enabled": true
+    }
+}
+]

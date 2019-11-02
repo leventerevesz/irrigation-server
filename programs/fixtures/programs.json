@@ -1,6 +1,7 @@
 [
 {
     "model": "programs.program",
+    "pk": 1,
     "fields": {
         "name": "Simple run-once program",
         "description": "Simple run-once program",
@@ -13,11 +14,12 @@
         "period": null,
         "priority": 1,
         "enabled": true,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 2,
     "fields": {
         "name": "Simple periodic program",
         "description": "Simple periodic program",
@@ -30,11 +32,12 @@
         "period": 3,
         "priority": 1,
         "enabled": true,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 3,
     "fields": {
         "name": "Simple weekly program",
         "description": "Simple weekly program",
@@ -47,11 +50,12 @@
         "period": null,
         "priority": 1,
         "enabled": true,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 11,
     "fields": {
         "name": "Everyday weekly program",
         "description": "Everyday weekly program",
@@ -64,11 +68,12 @@
         "period": null,
         "priority": 1,
         "enabled": true,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 91,
     "fields": {
         "name": "Disabled run-once program",
         "description": "Disabled run-once program",
@@ -81,11 +86,12 @@
         "period": null,
         "priority": 1,
         "enabled": false,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 92,
     "fields": {
         "name": "Disabled periodic program",
         "description": "Disabled periodic program",
@@ -98,11 +104,12 @@
         "period": 3,
         "priority": 1,
         "enabled": false,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 93,
     "fields": {
         "name": "Disabled weekly program",
         "description": "Disabled weekly program",
@@ -115,11 +122,12 @@
         "period": null,
         "priority": 1,
         "enabled": false,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 81,
     "fields": {
         "name": "Ended run-once program",
         "description": "Ended run-once program",
@@ -132,11 +140,12 @@
         "period": null,
         "priority": 1,
         "enabled": true,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 82,
     "fields": {
         "name": "Ended periodic program",
         "description": "Ended periodic program",
@@ -149,11 +158,12 @@
         "period": 3,
         "priority": 1,
         "enabled": true,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 83,
     "fields": {
         "name": "Ended weekly program",
         "description": "Ended weekly program",
@@ -166,11 +176,12 @@
         "period": null,
         "priority": 1,
         "enabled": true,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 72,
     "fields": {
         "name": "Future periodic program",
         "description": "Future periodic program",
@@ -183,14 +194,15 @@
         "period": 3,
         "priority": 1,
         "enabled": true,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 74,
     "fields": {
         "name": "End before start date",
-        "description": "Periodic program wit end date before start",
+        "description": "Periodic program with end date before start",
         "program_type": "periodic",
         "date_start": "2019-10-01",
         "date_end": "2019-09-15",
@@ -200,11 +212,12 @@
         "period": 3,
         "priority": 1,
         "enabled": true,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 102,
     "fields": {
         "name": "Program with a very very very very very very very very very very very very very very very very very very very very very very very very long name",
         "description": "And also a very very very very very very very veryv ery very very very very very very very very very very veryv ery very very very long description",
@@ -217,11 +230,12 @@
         "period": null,
         "priority": 1,
         "enabled": true,
-        "zones": []
+        "zones": [1]
     }
 },
 {
     "model": "programs.program",
+    "pk": 101,
     "fields": {
         "name": "Unicode description",
         "description": "\u00C1rv\u00EDzt\u0171r\u0151 t\u00FCk\u00F6rf\u00FAr\u00F3g\u00E9p",
@@ -234,7 +248,7 @@
         "period": null,
         "priority": 1,
         "enabled": true,
-        "zones": []
+        "zones": [1]
     }
 }
 ]
