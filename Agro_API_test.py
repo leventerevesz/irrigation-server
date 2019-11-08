@@ -1,5 +1,6 @@
 import requests
 import json
+from datetime import datetime, timedelta
 
 APPID = "d9a5161cce486ab8a4a866e48edf9b9f"
 POLYID = "5d97212fae8d9e0013fc164d"   # Hetenytuja
@@ -47,6 +48,20 @@ def get_soil_data():
     soil_data = json.loads(response.text)
     return soil_data
 
+def get_prec_last_24_h():
+    start = int(datetime.now().timestamp())
+    end = int((datetime.now() - timedelta(hours=24)).timestamp())
+    API_ENDPOINT = "http://api.agromonitoring.com/agro/1.0/weather/history/accumulated_precipitation?polyid={POLYID}&start={START}&end={END}&threshold=284&appid={APPID}".format(
+        APPID=APPID, POLYID=POLYID, START=start, END=end
+    )
+    response = requests.get(url=API_ENDPOINT)
+    prec = json.loads(response.text)
+    return prec
+
 if (__name__ == "__main__"):
-    sd = get_soil_data()
-    print(sd)
+    r = get_soil_data()
+    print(r)
+    r = get_current_weather()
+    print(r)
+    r = get_prec_last_24_h()
+    print(r)
