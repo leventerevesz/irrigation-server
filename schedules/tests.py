@@ -21,11 +21,11 @@ class RequestScheduleTestCase(TestCase):
         entry = RequestedRun.objects.get(program_id=1)
         self.assertEquals(entry.program.name, "Simple run-once program")
     
-    def test_runonce_gets_scheduled(self):
+    def test_periodic_gets_scheduled(self):
         entry = RequestedRun.objects.get(program_id=2)
         self.assertEquals(entry.program.name, "Simple periodic program")
 
-    def test_runonce_gets_scheduled(self):
+    def test_weekly_gets_scheduled(self):
         entry = RequestedRun.objects.get(program_id=11)
         self.assertEquals(entry.program.name, "Everyday weekly program")
     
