@@ -6,7 +6,7 @@ from schedules.models import RequestedRun
 
 
 class Command(BaseCommand):
-    help = "Creates a scheduled run for all irrigation events due today"
+    help = "Requests a scheduled run for all irrigation events due today"
 
     def add_arguments(self, parser):
         parser.add_argument("--date", help="the day to create a schedule for")
