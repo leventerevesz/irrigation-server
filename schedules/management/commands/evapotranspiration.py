@@ -1,5 +1,7 @@
+"This is just an experimenting / debug file."
+
 import math
-from datetime import date
+from datetime import date, datetime, time
 
 class Weather:
     def __init__(self):
@@ -12,9 +14,11 @@ class Weather:
         self.temperature_min = None
         self.temperature_max = None
         self.wind_speed = None # m/s
-        self.longitude = None # decimal
+        self.longitude = None # decimal, 360-x if East of Greenwich
+        self.longitude_tz_center = None # 360-x if East of Greenwich
         self.latitude = None # decimal
         self.elevation = None # m
+        self.timestamp = None # UNIX timestamp
 
     def mean_temperature(self):
         #return (self.temperature_max + self.temperature_min) / 2
@@ -23,22 +27,31 @@ class Weather:
     def wind_speed_2m(self):
         return self.wind_speed
 
+    def _isdaytime(self, omega):
+        isdaytime = False
+        if (omega > -math.pi/2 and omega < math.pi/2):
+            isdaytime = True
+        return isdaytime
+
     @property
     def reference_ET(self):
         "Penman-Monteith ET estimation, based on UF/IFAS AE45900"
 
+        # Angstrom coefficients
+        a_A = 0.28
+        b_A = 0.45
+
         # 1.
-        T_mean = self.mean_temperature()
+        T_hr = self.temperature
         
         # 2.
-        # Mean daily solar radiation
         R_s = self.solar_radiation # MJ/m2/day
 
         # 3.
         u_2 = self.wind_speed_2m()
 
         # 4.
-        Delta = 4096 * (0.6108 * math.exp( 17.27 * T_mean / (T_mean + 237.3)) / (T_mean + 237.3)**2)
+        Delta = 4096 * (0.6108 * math.exp( 17.27 * T_hr / (T_hr + 237.3)) / (T_hr + 237.3)**2)
 
         # 6.
         C_p = 1.013e-3 # MJ/kgK
@@ -55,21 +68,17 @@ class Weather:
 
         # 9.
         # modified
-        TT = (900 / 24 / (T_mean + 273)) * u_2
+        TT = (37 / (T_hr + 273)) * u_2
 
         # 10.
-        # modified
-        T_min, T_max = T_mean, T_mean
-        e_Tmin = 0.6108 * math.exp(17.27 * T_min / (T_min + 237.3))
-        e_Tmax = 0.6108 * math.exp(17.27 * T_max / (T_max + 237.3))
-        e_s = (e_Tmin + e_Tmax) / 2
+        e_s = 0.6108 * math.exp(17.27 * T_hr / (T_hr + 237.3))
 
         # 11.
         RH = self.humidity
-        e_a = RH / 100 * ((e_Tmin + e_Tmax) / 2)
+        e_a = RH * e_s
 
         # 12.
-        J = date.today().timetuple().tm_yday
+        J = date.fromtimestamp(self.timestamp).timetuple().tm_yday
         d_r = 1 + 0.033 * math.cos(2 * math.pi * J / 365)
         delta = 0.409 * math.sin(2 * math.pi * J / 365 - 1.39)
 
@@ -79,28 +88,57 @@ class Weather:
         # 14.
         omega_s = math.acos(-math.tan(phi) * math.tan(delta))
 
-        # 15.
-        # modified
-        G_sc = 0.0820 # MJ/m2/min
-        R_a = 60 / math.pi * G_sc * d_r * \
-            (omega_s * math.sin(phi) * math.sin(delta) + math.cos(phi) * math.cos(delta) * math.sin(omega_s))
-        
-        # 16.
-        R_so = (0.75 + 2e-5 * self.elevation) * R_a
+        # FAO hourly calculation
+        L_z = self.longitude_tz_center
+        L_m = self.longitude
+        dt = datetime.fromtimestamp(self.timestamp)
+        t = dt.hour + dt.minute / 60
+        b = 2 * math.pi * (J - 81) / 364
+        S_c = 0.1645 * math.sin(2 * b) - 0.1255 * math.cos(b) - 0.025 * math.sin(b)
+        omega = math.pi / 12 * ((t + 0.06667 * (L_m - L_z) + S_c) - 12)
+        omega_1 = omega - math.pi * 1 / 24
+        omega_2 = omega + math.pi * 1 / 24
+        N = 24 / math.pi * omega_s
 
-        # 17.
-        a = 0.23 # albedo coefficient, a_grass = 0.23
-        R_ns = (1 - a) * R_s
+        if (self._isdaytime(omega)):
+            # 15.
+            # R_a from FAO
+            G_sc = 0.0820 # MJ/m2/min
+            R_a = 12 * 60 / math.pi * G_sc * d_r * (
+                (omega_2 - omega_1) * math.sin(phi) * math.sin(delta) +
+                math.cos(phi) * math.cos(delta) * (math.sin(omega_2) - math.sin(omega_1)))
+            
+            # 2. if solar radiation is not measured
+            if R_s is None:
+                # Angstrom equation FAO eq.35
+                R_s = (a_A + b_A * (1 - self.cloud_cover)) * R_a
+            
+            # 16.
+            R_so = (0.75 + 2e-5 * self.elevation) * R_a
+            sky_coefficient = R_s / R_so
+
+            # 17.
+            a = 0.23 # albedo coefficient, a_grass = 0.23
+            R_ns = (1 - a) * R_s
+
+            # 19.1
+            G_coefficient = 0.1
+        
+        else: # nighttime
+            R_ns = 0
+            sky_coefficient = 1 - (b_A * self.cloud_cover) / (a_A + b_A)
+            G_coefficient = 0.5
 
         # 18.
-        # modified
         sigma = 4.903e-9 / 24
-        R_nl = sigma * ((T_max + 273.16)**4 + (T_min + 273.16)**4) / 2 * \
-            (0.34 - 0.14 * math.sqrt(e_a)) * (1.35 * R_s / R_so - 0.35)
+        R_nl = sigma * (T_hr + 273.16)**4 * \
+            (0.34 - 0.14 * math.sqrt(e_a)) * (1.35 * sky_coefficient - 0.35)
+                
         
-        # 19.
+        # 19.2
         R_n = R_ns - R_nl
-        R_ng = 0.408 * R_n
+        G = G_coefficient * R_n
+        R_ng = 0.408 * (R_n - G)
 
         # FS1.
         ET_rad = DT * R_ng
@@ -110,32 +148,80 @@ class Weather:
 
         # Final
         ET_0 = ET_wind + ET_rad
-        #breakpoint()
         return ET_0
 
-        
 
-def main():
+def weather_reference_1():
     weather = Weather()
-    weather.cloud_cover = 0.7
-    weather.humidity = 0.78
-    weather.pericip_intensity = 0.2
-    weather.pressure = 101
-    weather.temperature = 19
-    weather.wind_speed = 0.8
-    weather.cloud_cover = 0.2 # percentage/100
-    weather.humidity = 0.78 # percentage/100
-    weather.pericip_intensity = 0.01 # mm/hour
+    weather.temperature = 38 # °C
+    weather.humidity = 0.52 # relative
+    weather.wind_speed = 3.3 # m/s
+    weather.solar_radiation = 2.450 # MJ/m2/hour
     weather.pressure = 101 # kPa !!!
-    weather.solar_radiation = 380 * 3.6e-3 # MJ/m2/hour
-    weather.temperature = 24 # °C
-    weather.temperature_min = 9
-    weather.temperature_max = 25
-    weather.wind_speed = 2 # m/s
-    weather.longitude = 18.350610 # decimal
-    weather.latitude = 46.161686 # decimal
-    weather.elevation = 200 # m
+    weather.cloud_cover = 0 # relative
+    weather.longitude = -16.2500 # decimal
+    weather.latitude = 16.2166 # decimal
+    weather.elevation = 8 # m
+    weather.timestamp = int(datetime(2019, 10, 1, 14, 30).timestamp())
+    weather.longitude_tz_center = -15 # west north of Greenwich
+    return weather
 
+def weather_reference_2():
+    weather = Weather()
+    weather.temperature = 28 # °C
+    weather.humidity = 0.90 # relative
+    weather.wind_speed = 1.9 # m/s
+    weather.solar_radiation = 0 # MJ/m2/hour
+    weather.pressure = 101 # kPa !!!
+    weather.cloud_cover = 0.3 # relative
+    weather.longitude = -16.2500 # decimal
+    weather.latitude = 16.2166 # decimal
+    weather.elevation = 8 # m
+    weather.timestamp = int(datetime(2019, 10, 1, 2, 30).timestamp())
+    weather.longitude_tz_center = -15
+    return weather
+
+def test_reference_ET(weather, goal):
+    ET_0 = weather.reference_ET
+    error = abs(ET_0 - goal)
+    if (error < 0.01):
+        return True
+    else:
+        return False
+
+def test_with_FAO_data():
+    weather1 = weather_reference_1()
+    goal1 = 0.63
+    if (test_reference_ET(weather1, goal1) == True):
+        print("FAO Test 1 OK")
+    else:
+        print("FAO Test 1 FAIL")
+
+    weather2 = weather_reference_2()
+    goal2 = 0.0
+    if (test_reference_ET(weather2, goal2) == True):
+        print("FAO Test 2 OK")
+    else:
+        print("FAO Test 2 FAIL")
+
+def current_weather():
+    weather = Weather()
+    weather.temperature = 26 # °C
+    weather.humidity = 0.2 # relative
+    weather.wind_speed = 3.83 # m/s
+    weather.solar_radiation = None # MJ/m2/hour
+    weather.pressure = 100.51 # kPa !!!
+    weather.cloud_cover = 0.2 # relative
+    weather.longitude = 18.539 # decimal
+    weather.latitude = 46.1616 # decimal
+    weather.elevation = 200 # m
+    weather.timestamp = int(datetime(2019, 10, 1, 2, 30).timestamp())
+    weather.longitude_tz_center = 15 # decimal
+    return weather
+    
+def main():
+    #test_with_FAO_data()
+    weather = current_weather()
     ET_0 = weather.reference_ET
     print(f"ET_0 = {ET_0}")
 
