@@ -16,7 +16,7 @@ class ScheduledRun(models.Model):
     request = models.ForeignKey("schedules.RequestedRun", on_delete=models.CASCADE)
     start = models.DateTimeField()
     duration = models.DurationField()
-    progress = models.FloatField()
+    progress = models.FloatField(default=0)
 
     def __str__(self):
         return f"({self.id}) request:[{self.request.id}] - [{self.request.zone.id}] {self.request.zone.name} @ {self.start}"
@@ -26,7 +26,7 @@ class Action(models.Model):
     channel = models.ForeignKey("controllers.Channel", on_delete=models.CASCADE)
     datetime = models.DateTimeField()
     command = models.CharField(max_length=25)
-    done = models.BooleanField()
+    done = models.BooleanField(default=False)
 
     def __str__(self):
         return f"({self.id}) channel:[{self.channel.id}] command: {self.command} @ {self.datetime}"

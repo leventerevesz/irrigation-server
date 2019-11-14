@@ -7,6 +7,7 @@ class Zone(models.Model):
     location = models.CharField(max_length=80, blank=True, default="")
     description = models.TextField(blank=True, default="")
     channels = models.ManyToManyField("controllers.Channel", blank=True)
+    intensity = models.FloatField(blank=True)
     enabled = models.BooleanField(default=True)
 
     def __str__(self):
