@@ -18,6 +18,7 @@ class Controller(models.Model):
 class Channel(models.Model):
     "Channel on a microcontroller"
     name = models.CharField(max_length=80)
+    topic = models.CharField(max_length=80)
     location = models.CharField(max_length=80, blank=True, default="")
     description = models.TextField(blank=True, default="")
     controller = models.ForeignKey(Controller, on_delete=models.CASCADE)
