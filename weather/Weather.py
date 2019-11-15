@@ -12,6 +12,7 @@ class WeatherConditions():
         self.humidity = data.humidity
         self.pressure = data.pressure / 10 # kPa
         self.cloud_cover = data.cloudCover
+        self.precipitation = data.precipIntensity * data.precipProbability
 
 
 class Weather():
@@ -151,6 +152,27 @@ class Weather():
     def current_hourly_reference_ET(self):
         weather_conditions = WeatherConditions(self.forecast)
         return self.hourly_reference_ET(weather_conditions)
+    
+    @property
+    def reference_ET_precipitation_forecast(self):
+        ET_forecast = []
+        for hourly_data in self.forecast.hourly:
+            weather_conditions = WeatherConditions(hourly_data)
+            record = {
+                "dt": weather_conditions.time,
+                "ET": self.hourly_reference_ET(weather_conditions),
+                "precipitation": weather_conditions.precipitation
+            }
+            ET_forecast.append(record)
+        return ET_forecast
+
+    @property
+    def next_24h_reference_ET(self):
+        ET_forecast = self.reference_ET_precipitation_forecast[0:24]
+        ET_list = []
+        for record in ET_forecast:
+            ET_list.append(record["ET"])
+        return sum(ET_list)
 
 
 if __name__ == "__main__":
@@ -160,4 +182,6 @@ if __name__ == "__main__":
 
     weather = Weather(APIKEY, 46.1616, 18.3514, 15, 200)
     ET_0 = weather.current_hourly_reference_ET
-    print(ET_0)
+    ET_0_next_24h = weather.next_24h_reference_ET
+    print(f"Current: {ET_0}")
+    print(f"Nex 24 hours: {ET_0_next_24h}")
