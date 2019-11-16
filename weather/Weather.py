@@ -6,13 +6,14 @@ import darksky
 class WeatherConditions():
     "Interface for DarkSky API data"
     def __init__(self, data):
-        self.time = data.time
+        self.datetime = datetime.fromtimestamp(data.time)
         self.temperature = data.temperature
         self.wind_speed = data.windSpeed
         self.humidity = data.humidity
         self.pressure = data.pressure / 10 # kPa
         self.cloud_cover = data.cloudCover
-        self.precipitation = data.precipIntensity * data.precipProbability
+        self.precipitation = data.precipIntensity
+        self.precipitation_probability = data.precipProbability
 
 
 class Weather():
@@ -78,7 +79,7 @@ class Weather():
         e_a = RH * e_s
 
         # 12.
-        J = date.fromtimestamp(weather_conditions.time).timetuple().tm_yday
+        J = weather_conditions.datetime.timetuple().tm_yday
         d_r = 1 + 0.033 * math.cos(2 * math.pi * J / 365)
         delta = 0.409 * math.sin(2 * math.pi * J / 365 - 1.39)
 
@@ -91,7 +92,7 @@ class Weather():
         # FAO hourly calculation
         L_z = self.longitude_tzcenter
         L_m = self.longitude
-        dt = datetime.fromtimestamp(weather_conditions.time)
+        dt = weather_conditions.datetime
         t = dt.hour + dt.minute / 60
         b = 2 * math.pi * (J - 81) / 364
         S_c = 0.1645 * math.sin(2 * b) - 0.1255 * math.cos(b) - 0.025 * math.sin(b)
@@ -159,7 +160,7 @@ class Weather():
         for hourly_data in self.forecast.hourly:
             weather_conditions = WeatherConditions(hourly_data)
             record = {
-                "dt": weather_conditions.time,
+                "datetime": weather_conditions.datetime,
                 "ET": self.hourly_reference_ET(weather_conditions),
                 "precipitation": weather_conditions.precipitation
             }

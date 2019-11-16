@@ -7,7 +7,7 @@ class WeatherRecord(models.Model):
     reference_ET = models.FloatField()
 
     def __str__(self):
-        return f"({self.id} @ {self.datetime})"
+        return f"({self.id}) @ {self.datetime} - ET: {self.reference_ET:.3f} Precip: {self.precipitation:.3f}"
 
 
 class TankRecord(models.Model):
@@ -15,4 +15,4 @@ class TankRecord(models.Model):
     level = models.FloatField()
 
     def __str__(self):
-        return f"({self.id} @ {self.datetime})"
+        return f"({self.id}) @ {self.datetime} - {self.level:.3f}"
