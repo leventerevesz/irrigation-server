@@ -15,16 +15,18 @@ class WeatherConditions():
         self.precipitation = data.precipIntensity
         self.precipitation_probability = data.precipProbability
 
-
 class Weather():
-    def __init__(self, apikey, latitude, longitude, longitude_tzcenter, elevation):
+    def __init__(self, apikey, latitude, longitude, longitude_tzcenter, elevation, forecast=None):
         self.apikey = apikey
         self.latitude = latitude
         self.longitude = longitude
         self.longitude_tzcenter = longitude_tzcenter
         self.elevation = elevation
 
-        self.forecast = darksky.forecast(self.apikey, self.latitude, self.longitude, units="si")
+        if forecast is None:
+            self.forecast = darksky.forecast(self.apikey, self.latitude, self.longitude, units="si")
+        else:
+            self.forecast = forecast
 
     def _isdaytime(self, omega):
         isdaytime = False

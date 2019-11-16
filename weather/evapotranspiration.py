@@ -112,6 +112,7 @@ class Weather:
             if R_s is None:
                 # Angstrom equation FAO eq.35
                 R_s = (a_A + b_A * (1 - self.cloud_cover)) * R_a
+                print(R_s)
             
             # 16.
             R_so = (0.75 + 2e-5 * self.elevation) * R_a
@@ -156,9 +157,9 @@ def weather_reference_1():
     weather.temperature = 38 # °C
     weather.humidity = 0.52 # relative
     weather.wind_speed = 3.3 # m/s
-    weather.solar_radiation = 2.450 # MJ/m2/hour
+    #weather.solar_radiation = 2.450 # MJ/m2/hour
     weather.pressure = 101 # kPa !!!
-    weather.cloud_cover = 0 # relative
+    weather.cloud_cover = 0.08 # relative
     weather.longitude = -16.2500 # decimal
     weather.latitude = 16.2166 # decimal
     weather.elevation = 8 # m
@@ -171,7 +172,7 @@ def weather_reference_2():
     weather.temperature = 28 # °C
     weather.humidity = 0.90 # relative
     weather.wind_speed = 1.9 # m/s
-    weather.solar_radiation = 0 # MJ/m2/hour
+    #weather.solar_radiation = 0 # MJ/m2/hour
     weather.pressure = 101 # kPa !!!
     weather.cloud_cover = 0.3 # relative
     weather.longitude = -16.2500 # decimal
@@ -220,7 +221,7 @@ def current_weather():
     return weather
     
 def main():
-    #test_with_FAO_data()
+    test_with_FAO_data()
     weather = current_weather()
     ET_0 = weather.reference_ET
     print(f"ET_0 = {ET_0}")
