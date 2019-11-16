@@ -2,8 +2,11 @@ from datetime import datetime, date, time, timedelta
 
 from django.core.management.base import BaseCommand, CommandError
 
+from home.models import Settings
+
 from weather.models import WeatherRecord
-from weather.Weather import Weather
+from weather.WeatherAPI import Weather
+
 
 #TODO:
 #    - Read location settings from database
@@ -12,8 +15,15 @@ class Command(BaseCommand):
     help = "update weather forecast"
 
     def handle(self, *args, **options):
-        APIKEY = "8b16caa53b6dac44cd9654f4fbb55b57"
-        weather = Weather(APIKEY, 46.1616, 18.3514, 15, 200)
+        settings = Settings.objects.get(pk=1)
+
+        weather = Weather(
+            settings.weather_api_key,
+            settings.site_latitude,
+            settings.site_longitude,
+            settings.tzcenter_longitude, 
+            settings.site_elevation
+        )
 
         weather_forecast = weather.reference_ET_precipitation_forecast
         
