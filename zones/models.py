@@ -8,7 +8,8 @@ class Zone(models.Model):
     description = models.TextField(blank=True, default="")
     plant_coefficient = models.FloatField(default=1)
     channels = models.ManyToManyField("controllers.Channel", blank=True)
-    intensity = models.FloatField(blank=True)
+    intensity = models.FloatField(default=5)
+    flow_rate = models.FloatField(default=1) # m3/h
     enabled = models.BooleanField(default=True)
 
     def __str__(self):
