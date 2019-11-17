@@ -9,7 +9,14 @@ class Command(BaseCommand):
     help = "Requests a scheduled run for all irrigation events due today"
 
     def add_arguments(self, parser):
-        parser.add_argument("--date", help="the day to create a schedule for")
+        parser.add_argument("--date", help="the day to request a schedule for. YYYY-MM-DD")
+    
+    def _get_date(self, datestr):
+        if datestr is None:
+            thedate = date.today()
+        else:
+            thedate = date.fromisoformat(datestr)
+        return thedate
 
     def handle(self, *args, **options):
         thedate = self._get_date(options.get("date"))
@@ -35,13 +42,6 @@ class Command(BaseCommand):
         self.stdout.write(f"Found {program_count} programs.")
         self.stdout.write(f"Created {entry_count} schedule entries.")
         self.stdout.write(self.style.SUCCESS("SUCCESS."))
-
-    def _get_date(self, datestr):
-        if datestr is None:
-            thedate = date.today()
-        else:
-            thedate = date.fromisoformat(datestr)
-        return thedate
 
     def get_runonce_programs(self, thedate):
         programs = Program.objects.filter(enabled=True, program_type="run-once", date_start=thedate)
