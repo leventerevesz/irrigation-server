@@ -6,6 +6,7 @@ class Zone(models.Model):
     name = models.CharField(max_length=80)
     location = models.CharField(max_length=80, blank=True, default="")
     description = models.TextField(blank=True, default="")
+    plant_coefficient = models.FloatField(default=1)
     channels = models.ManyToManyField("controllers.Channel", blank=True)
     intensity = models.FloatField(blank=True)
     enabled = models.BooleanField(default=True)
