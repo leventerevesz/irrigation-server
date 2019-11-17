@@ -21,14 +21,16 @@ class Program(models.Model):
         (6, "Saturday"),
         (7, "Sunday")
     ]
+    ADAPTIVITY_TYPES = [
+        ("none", "None"),
+        ("bypass", "Bypass"),
+        ("ET", "Evapotranspiration")
+    ]
 
     name = models.CharField(max_length=80)
     description = models.TextField(blank=True, default="")
     program_type = models.CharField(
-        max_length=16,
-        choices=PROGRAM_TYPES,
-        default="run-once"
-    )
+        max_length=16, choices=PROGRAM_TYPES, default="run-once")
     zones = models.ManyToManyField("zones.Zone", blank=True)
     date_start = models.DateField()
     date_end = models.DateField(blank=True, null=True)
@@ -37,8 +39,9 @@ class Program(models.Model):
     duration = models.DurationField(blank=True, null=True)
     period = models.PositiveSmallIntegerField(blank=True, null=True)
     priority = models.PositiveSmallIntegerField(
-        default=10,
-        validators=[MinValueValidator(1), MaxValueValidator(10)])
+        default=10, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    adaptivity = models.CharField(
+        max_length=10, choices=ADAPTIVITY_TYPES, default="none")
     can_be_skipped = models.BooleanField(default=True)
     enabled = models.BooleanField(default=True)
 
