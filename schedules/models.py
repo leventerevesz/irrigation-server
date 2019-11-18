@@ -29,4 +29,4 @@ class Action(models.Model):
     done = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"({self.id}) channel:[{self.channel.id}] command: {self.command} @ {self.datetime}"
+        return f"({self.id}) sched: {self.schedule.id} channel: {self.channel.id} command: {self.command} @ {self.datetime}"
