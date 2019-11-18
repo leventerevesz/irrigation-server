@@ -73,7 +73,6 @@ class Command(BaseCommand):
                 requests_adapted_to_quota.append(adapted)
 
         # Scheduling
-        breakpoint()
         if (len(requests_adapted_to_quota) == 0):
             self.stderr.write(f"Only low priority requests, skipping all.")
             return
@@ -89,12 +88,14 @@ class Command(BaseCommand):
 
         for request in requests_adapted_to_quota:
             start = max(request.start, possible_begin)
-            obj = ScheduledRun.objects.create(
+            oldsched = ScheduledRun.objects.get(request=request)
+            oldsched.delete()
+            sched = ScheduledRun.objects.create(
                 request=request,
                 start=start,
                 duration=request.duration
             )
-            obj.save()
+            sched.save()
             possible_begin = start + request.duration
 
     def shorten_based_on_priority(self, request, shortening_factor):
