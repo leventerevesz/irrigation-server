@@ -24,9 +24,14 @@ class Command(BaseCommand):
         firstdt = datetime(thedate)
         lastdt = firstdt + timedelta(hours=24)
 
-        requests = RequestedRun.objects.filter(start__gt=firstdt, start__lt=lastdt)
+        requests = RequestedRun.objects.filter(start__gt=firstdt, start__lt=lastdt).order_by('start')
         weather_records = WeatherRecord.objects.filter(datetime__gte=firstdt, datetime__lt=lastdt)
 
+        if (not requests.exists()):
+            self.stderr.write("No requests.")
+            return
+
+        # Adapt to weather
         cumulative_reference_ET = sum([record.reference_ET for record in weather_records])
         cumulative_precipitation = sum([record.precipitation for record in weather_records])
 
@@ -36,6 +41,8 @@ class Command(BaseCommand):
             if adapted_request is not None:
                 requests_adapted_to_weather.append(adapted_request)
 
+
+        # Adapt to water quota
         stored_water = self.get_stored_water()
         requested_water = self.requested_water(requests)
         
@@ -48,25 +55,60 @@ class Command(BaseCommand):
                 requests_adapted_to_quota.append(request)
         else:
             minimum_water = self.minimum_water_need(requests_adapted_to_weather)
-            if (minimum_water > water_quota):
+            neccessary_requested_water = self.neccessary_requested_water_need(requests_adapted_to_weather)
+
+            if (neccessary_requested_water < water_quota):
+                shortening_factor = 0
+            elif (minimum_water < water_quota):
+                shortening_factor = (neccessary_requested_water - quota) / (neccessary_requested_water - minimum_water)
+            else:
                 self.stderr.write(
                     f"Exceeding water quota. Quota: {water_quota}, "
                     f"Minimum irrigation: {minimum_water}."
                 )
-            shortening_factor = minimum_water / requested_water # nem korrekt!!!
+                shortening_factor = 1
 
-            for record in requests_adapted_to_weather
-                if (request.program.priority >= 8):
-                    record.duration = record.duration
-                elif (request.program.priority >= 5):
-                    record.duration = record.duration * (1 - 0.3 * shortening_factor)
-                elif (request.program.priority >= 3):
-                    record.duration = record.duration * (1 - 0.5 * shortening_factor)
-                else:
-                    del record
+            for request in requests_adapted_to_weather:
+                adapted = self.shorten_based_on_priority(request, shortening_factor)
+                requests_adapted_to_quota.append(adapted)
 
+        # Scheduling
+        firstrequestdt = requests[0].start
+        earlierschedules = ScheduledRun.objects.filter(start__lt=firstrequestdt)
+            if (earlierschedules.exists()):
+                record = earlierschedules.latest("start")
+                lastscheduleddt = record.start + record.duration
+            else:
+                lastscheduleddt = firstrequestdt
+        possible_begin = max(firstrequestdt, lastscheduleddt)
+
+        requests_adapted_to_quota.sort()
+        for request in requests_adapted_to_quota:
+            start = max(request.start, possible_begin)
+            obj = ScheduledRun.objects.create(
+                request=request,
+                start=start,
+                duration=request.duration
+            )
+            obj.save()
+            possible_begin = start + request.duration
+
+
+    def neccessary_requested_water_need(self, requests):
+        "Total water need of non-skippable requests"
+        water_need = 0
+        for request in requests:
+            intensity = request.zone.intensity
+            duration = request.duration.seconds / 3600 # h
+            requested_irrigation = duration * intensity
+
+            if (request.program.priority >= 3):
+                water_need += requested_irrigation
+
+        return water_need
 
     def minimum_water_need(self, requests):
+        "Minimum total water need with skipping and shortening"
         water_need = 0
         for request in requests:
             intensity = request.zone.intensity
@@ -76,13 +118,23 @@ class Command(BaseCommand):
             if (request.program.priority >= 8):
                 water_need += requested_irrigation
             elif (request.program.priority >= 5):
-                water_need += requested_irrigation * 0.7
+                water_need += requested_irrigation * (1 - 0.3)
             elif (request.program.priority >= 3):
-                water_need += requested_irrigation * 0.5
-            else:
-                water_need += 0
+                water_need += requested_irrigation * (1 - 0.5)
 
         return water_need
+
+    def shorten_based_on_priority(self, request, shortening_factor):
+        if (request.program.priority >= 8):
+            request.duration = request.duration
+        elif (request.program.priority >= 5):
+            request.duration = request.duration * (1 - 0.3 * shortening_factor)
+        elif (request.program.priority >= 3):
+            request.duration = request.duration * (1 - 0.5 * shortening_factor)
+        else:
+            request = None
+
+        return request
 
     def adapt_to_weather(self, request, cumulative_reference_ET, cumulative_precipitation):
         cumulatice_ET = cumulative_reference_ET * request.zone.plant_coefficient

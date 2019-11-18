@@ -14,7 +14,7 @@ class RequestScheduleTestCase(TestCase):
 
     def setUp(self):
         out = StringIO()
-        call_command("request_schedule", f"--date={thedate.isoformat()}", stdout=out)
+        call_command("request-schedule", f"--date={thedate.isoformat()}", stdout=out)
         self.assertIn("SUCCESS.", out.getvalue())
 
     def test_runonce_gets_scheduled(self):
@@ -37,3 +37,7 @@ class RequestScheduleTestCase(TestCase):
     def test_start_date(self):
         entry = RequestedRun.objects.get(program_id=1)
         self.assertEqual(entry.start.date(), thedate)
+
+#class MakeScheduleTestCase(TestCase):
+
+# no requests for today
