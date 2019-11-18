@@ -33,11 +33,10 @@ class Command(BaseCommand):
         for program in queryset:
             program_count += 1
             start = datetime.combine(date=thedate, time=program.time_start)
-            for zone in program.zones.all():
-                if (zone.enabled == True):
-                    entry_count += 1
-                    entry = RequestedRun(program=program, zone=zone, start=start, duration=program.duration)
-                    entry.save()
+            for zone in program.zones.filter(enabled=True):
+                entry_count += 1
+                entry = RequestedRun(program=program, zone=zone, start=start, duration=program.duration)
+                entry.save()
 
         self.stdout.write(f"Date: {thedate}")
         self.stdout.write(f"Found {program_count} programs.")
