@@ -34,9 +34,10 @@ class Command(BaseCommand):
             program_count += 1
             start = datetime.combine(date=thedate, time=program.time_start)
             for zone in program.zones.all():
-                entry_count += 1
-                entry = RequestedRun(program=program, zone=zone, start=start, duration=program.duration)
-                entry.save()
+                if (zone.enabled == True):
+                    entry_count += 1
+                    entry = RequestedRun(program=program, zone=zone, start=start, duration=program.duration)
+                    entry.save()
 
         self.stdout.write(f"Date: {thedate}")
         self.stdout.write(f"Found {program_count} programs.")
