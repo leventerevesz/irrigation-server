@@ -21,7 +21,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         thedate = self.get_date(options.get("date"))
-        firstdt = datetime(thedate)
+        firstdt = datetime.combine(thedate, time(0,0,0))
         lastdt = firstdt + timedelta(hours=24)
 
         requests = RequestedRun.objects.filter(start__gt=firstdt, start__lt=lastdt).order_by('start')
@@ -43,7 +43,7 @@ class Command(BaseCommand):
 
 
         # Adapt to water quota
-        stored_water = self.get_stored_water()
+        # stored_water = self.get_stored_water(thedate)
         requested_water = self.requested_water(requests)
         
         #TODO calculate daily water quota
@@ -60,7 +60,7 @@ class Command(BaseCommand):
             if (neccessary_requested_water < water_quota):
                 shortening_factor = 0
             elif (minimum_water < water_quota):
-                shortening_factor = (neccessary_requested_water - quota) / (neccessary_requested_water - minimum_water)
+                shortening_factor = (neccessary_requested_water - water_quota) / (neccessary_requested_water - minimum_water)
             else:
                 self.stderr.write(
                     f"Exceeding water quota. Quota: {water_quota}, "
@@ -73,16 +73,20 @@ class Command(BaseCommand):
                 requests_adapted_to_quota.append(adapted)
 
         # Scheduling
+        breakpoint()
+        if (len(requests_adapted_to_quota) == 0):
+            self.stderr.write(f"Only low priority requests, skipping all.")
+            return
+
         firstrequestdt = requests[0].start
         earlierschedules = ScheduledRun.objects.filter(start__lt=firstrequestdt)
-            if (earlierschedules.exists()):
-                record = earlierschedules.latest("start")
-                lastscheduleddt = record.start + record.duration
-            else:
-                lastscheduleddt = firstrequestdt
+        if (earlierschedules.exists()):
+            record = earlierschedules.latest("start")
+            lastscheduleddt = record.start + record.duration
+        else:
+            lastscheduleddt = firstrequestdt
         possible_begin = max(firstrequestdt, lastscheduleddt)
 
-        requests_adapted_to_quota.sort()
         for request in requests_adapted_to_quota:
             start = max(request.start, possible_begin)
             obj = ScheduledRun.objects.create(
@@ -93,48 +97,23 @@ class Command(BaseCommand):
             obj.save()
             possible_begin = start + request.duration
 
-
-    def neccessary_requested_water_need(self, requests):
-        "Total water need of non-skippable requests"
-        water_need = 0
-        for request in requests:
-            intensity = request.zone.intensity
-            duration = request.duration.seconds / 3600 # h
-            requested_irrigation = duration * intensity
-
-            if (request.program.priority >= 3):
-                water_need += requested_irrigation
-
-        return water_need
-
-    def minimum_water_need(self, requests):
-        "Minimum total water need with skipping and shortening"
-        water_need = 0
-        for request in requests:
-            intensity = request.zone.intensity
-            duration = request.duration.seconds / 3600 # h
-            requested_irrigation = duration * intensity
-
-            if (request.program.priority >= 8):
-                water_need += requested_irrigation
-            elif (request.program.priority >= 5):
-                water_need += requested_irrigation * (1 - 0.3)
-            elif (request.program.priority >= 3):
-                water_need += requested_irrigation * (1 - 0.5)
-
-        return water_need
-
     def shorten_based_on_priority(self, request, shortening_factor):
-        if (request.program.priority >= 8):
+        if (request.program.priority <= 3):
             request.duration = request.duration
-        elif (request.program.priority >= 5):
+        elif (request.program.priority <= 5):
             request.duration = request.duration * (1 - 0.3 * shortening_factor)
-        elif (request.program.priority >= 3):
+        elif (request.program.priority <= 8):
             request.duration = request.duration * (1 - 0.5 * shortening_factor)
         else:
             request = None
 
+        # round to seconds
+        request.duration = self.round_timedelta(request.duration)
+
         return request
+
+    def round_timedelta(self, td):
+        return timedelta(seconds=td.seconds)
 
     def adapt_to_weather(self, request, cumulative_reference_ET, cumulative_precipitation):
         cumulatice_ET = cumulative_reference_ET * request.zone.plant_coefficient
@@ -155,7 +134,8 @@ class Command(BaseCommand):
             programmed_irrigation = programmed_duration.seconds / 3600 * intensity
             
             adapted_duration = timedelta(hours=(water_need / intensity))
-            request.duration = self.limit_duration(programmed_duration, adapted_duration)
+            requested_duration = self.limit_duration(programmed_duration, adapted_duration)
+            request.duration = self.round_timedelta(requested_duration)
 
             return request
         
@@ -175,7 +155,7 @@ class Command(BaseCommand):
 
         return duration
 
-    def get_stored_water(self):
+    def get_stored_water(self, thedate):
         tank_record_query = TankRecord.objects.filter(datetime__date=thedate)
         settings = Settings.objects.get(pk=1)
 
@@ -194,3 +174,27 @@ class Command(BaseCommand):
             usage = request.zone.flow_rate * (request.duration.seconds / 3600)
             total_usage += usage
         return total_usage
+
+    def neccessary_requested_water_need(self, requests):
+        "Total water need of non-skippable requests"
+        water_need = 0
+        for request in requests:
+            requested_irrigation = request.zone.flow_rate * (request.duration.seconds / 3600)
+            if (request.program.priority <= 8):
+                water_need += requested_irrigation
+
+        return water_need
+
+    def minimum_water_need(self, requests):
+        "Minimum total water need with skipping and shortening"
+        water_need = 0
+        for request in requests:
+            requested_irrigation = request.zone.flow_rate * (request.duration.seconds / 3600)
+            if (request.program.priority <= 3):
+                water_need += requested_irrigation
+            elif (request.program.priority <= 5):
+                water_need += requested_irrigation * (1 - 0.3)
+            elif (request.program.priority <= 8):
+                water_need += requested_irrigation * (1 - 0.5)
+
+        return water_need
