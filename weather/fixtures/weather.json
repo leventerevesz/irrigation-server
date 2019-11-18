@@ -1,0 +1,776 @@
+[
+    {
+        "model": "weather.weatherrecord",
+        "pk": 50,
+        "fields": {
+            "datetime": "2019-09-30T11:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.08674812388153157
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 51,
+        "fields": {
+            "datetime": "2019-09-30T12:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.08774587108787515
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 52,
+        "fields": {
+            "datetime": "2019-09-30T13:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.08763377948216389
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 393,
+        "fields": {
+            "datetime": "2019-09-30T14:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.06344026524221107
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 394,
+        "fields": {
+            "datetime": "2019-09-30T15:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.032328013957672805
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 395,
+        "fields": {
+            "datetime": "2019-09-30T16:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.0028348073510185944
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 396,
+        "fields": {
+            "datetime": "2019-09-30T17:00:00",
+            "precipitation": 0.0,
+            "reference_ET": -0.007222666571993008
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 397,
+        "fields": {
+            "datetime": "2019-09-30T18:00:00",
+            "precipitation": 0.0083,
+            "reference_ET": 0.0364741869580966
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 398,
+        "fields": {
+            "datetime": "2019-09-30T19:00:00",
+            "precipitation": 0.0094,
+            "reference_ET": 0.0363909508837556
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 399,
+        "fields": {
+            "datetime": "2019-09-30T20:00:00",
+            "precipitation": 0.0083,
+            "reference_ET": 0.03591930611900243
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 400,
+        "fields": {
+            "datetime": "2019-09-30T21:00:00",
+            "precipitation": 0.0072,
+            "reference_ET": 0.033967037938428035
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 401,
+        "fields": {
+            "datetime": "2019-09-30T22:00:00",
+            "precipitation": 0.0062,
+            "reference_ET": 0.03432771168701929
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 402,
+        "fields": {
+            "datetime": "2019-09-30T23:00:00",
+            "precipitation": 0.0051,
+            "reference_ET": 0.03477600732037138
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 403,
+        "fields": {
+            "datetime": "2019-10-01T00:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.03452247067811323
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 404,
+        "fields": {
+            "datetime": "2019-10-01T01:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.032422256842618354
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 405,
+        "fields": {
+            "datetime": "2019-10-01T02:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.027439121349091322
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 406,
+        "fields": {
+            "datetime": "2019-10-01T03:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.026039466950679744
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 407,
+        "fields": {
+            "datetime": "2019-10-01T04:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.027117210132683943
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 408,
+        "fields": {
+            "datetime": "2019-10-01T05:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.024942257611205616
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 409,
+        "fields": {
+            "datetime": "2019-10-01T06:00:00",
+            "precipitation": 0.0,
+            "reference_ET": -0.03116516153261143
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 410,
+        "fields": {
+            "datetime": "2019-10-01T07:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.019500291111332318
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 411,
+        "fields": {
+            "datetime": "2019-10-01T08:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.0655666641031188
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 412,
+        "fields": {
+            "datetime": "2019-10-01T09:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.09616550709069378
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 413,
+        "fields": {
+            "datetime": "2019-10-01T10:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.1310745403240558
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 414,
+        "fields": {
+            "datetime": "2019-10-01T11:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.15632794138344852
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 415,
+        "fields": {
+            "datetime": "2019-10-01T12:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.16782101452849063
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 442,
+        "fields": {
+            "datetime": "2019-10-01T13:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.10950766227649694
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 443,
+        "fields": {
+            "datetime": "2019-10-01T14:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.08027539911670069
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 444,
+        "fields": {
+            "datetime": "2019-10-01T15:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.07417347881561749
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 445,
+        "fields": {
+            "datetime": "2019-10-01T16:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.07132918525107404
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 446,
+        "fields": {
+            "datetime": "2019-10-01T17:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.04688705685935704
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 447,
+        "fields": {
+            "datetime": "2019-10-01T18:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.0722119121755523
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 448,
+        "fields": {
+            "datetime": "2019-10-01T19:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.06778403883805034
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 449,
+        "fields": {
+            "datetime": "2019-10-01T20:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.06304695514419562
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 450,
+        "fields": {
+            "datetime": "2019-10-01T21:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.061942961531629155
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 451,
+        "fields": {
+            "datetime": "2019-10-01T22:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.061137217838994416
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 452,
+        "fields": {
+            "datetime": "2019-10-01T23:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.0638271852728359
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 453,
+        "fields": {
+            "datetime": "2019-10-02T00:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.06235405471995629
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 454,
+        "fields": {
+            "datetime": "2019-10-02T01:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.055855228876188996
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 455,
+        "fields": {
+            "datetime": "2019-10-02T02:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.0505931398451487
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 456,
+        "fields": {
+            "datetime": "2019-10-02T03:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.045008865015869974
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 457,
+        "fields": {
+            "datetime": "2019-10-02T04:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.040499778578449545
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 458,
+        "fields": {
+            "datetime": "2019-10-02T05:00:00",
+            "precipitation": 0.0132,
+            "reference_ET": 0.031622170995917895
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 459,
+        "fields": {
+            "datetime": "2019-10-02T06:00:00",
+            "precipitation": 0.0216,
+            "reference_ET": -0.0023009440364353817
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 460,
+        "fields": {
+            "datetime": "2019-10-02T07:00:00",
+            "precipitation": 0.0207,
+            "reference_ET": 0.015667595324871164
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 461,
+        "fields": {
+            "datetime": "2019-10-02T08:00:00",
+            "precipitation": 0.0442,
+            "reference_ET": 0.03142380344155596
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 491,
+        "fields": {
+            "datetime": "2019-10-02T09:00:00",
+            "precipitation": 0.0892,
+            "reference_ET": 0.07002459271398749
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 492,
+        "fields": {
+            "datetime": "2019-10-02T10:00:00",
+            "precipitation": 0.0515,
+            "reference_ET": 0.09969867116205515
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 493,
+        "fields": {
+            "datetime": "2019-10-02T11:00:00",
+            "precipitation": 0.0232,
+            "reference_ET": 0.13305538034144648
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 494,
+        "fields": {
+            "datetime": "2019-10-02T12:00:00",
+            "precipitation": 0.0106,
+            "reference_ET": 0.1623330745237701
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 495,
+        "fields": {
+            "datetime": "2019-10-02T13:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.15695682651335835
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 496,
+        "fields": {
+            "datetime": "2019-10-02T14:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.1218866051303326
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 497,
+        "fields": {
+            "datetime": "2019-10-02T15:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.06361441064629879
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 498,
+        "fields": {
+            "datetime": "2019-10-02T16:00:00",
+            "precipitation": 0.0,
+            "reference_ET": -0.010840508781307191
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 499,
+        "fields": {
+            "datetime": "2019-10-02T17:00:00",
+            "precipitation": 0.0,
+            "reference_ET": -0.09423931578832617
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 500,
+        "fields": {
+            "datetime": "2019-10-02T18:00:00",
+            "precipitation": 0.0,
+            "reference_ET": -0.00884377448988195
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 501,
+        "fields": {
+            "datetime": "2019-10-02T19:00:00",
+            "precipitation": 0.0,
+            "reference_ET": -0.007474453868981341
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 502,
+        "fields": {
+            "datetime": "2019-10-02T20:00:00",
+            "precipitation": 0.0,
+            "reference_ET": -0.003938994970768855
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 503,
+        "fields": {
+            "datetime": "2019-10-02T21:00:00",
+            "precipitation": 0.0051,
+            "reference_ET": -0.00017858583257482352
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 504,
+        "fields": {
+            "datetime": "2019-10-02T22:00:00",
+            "precipitation": 0.0051,
+            "reference_ET": 0.0038476421612665575
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 505,
+        "fields": {
+            "datetime": "2019-10-02T23:00:00",
+            "precipitation": 0.0051,
+            "reference_ET": 0.008483970172666295
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 506,
+        "fields": {
+            "datetime": "2019-10-03T00:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.01220177644539248
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 507,
+        "fields": {
+            "datetime": "2019-10-03T01:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.01661873283634887
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 508,
+        "fields": {
+            "datetime": "2019-10-03T02:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.02204855787388124
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 509,
+        "fields": {
+            "datetime": "2019-10-03T03:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.024569180143999822
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 510,
+        "fields": {
+            "datetime": "2019-10-03T04:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.021401858042355327
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 511,
+        "fields": {
+            "datetime": "2019-10-03T05:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.01754303037847955
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 512,
+        "fields": {
+            "datetime": "2019-10-03T06:00:00",
+            "precipitation": 0.0,
+            "reference_ET": -0.018477482136741875
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 513,
+        "fields": {
+            "datetime": "2019-10-03T07:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.005239888319946307
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 514,
+        "fields": {
+            "datetime": "2019-10-03T08:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.02551954919441335
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 515,
+        "fields": {
+            "datetime": "2019-10-03T09:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.050237782210055835
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 516,
+        "fields": {
+            "datetime": "2019-10-03T10:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.0751470766149695
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 517,
+        "fields": {
+            "datetime": "2019-10-03T11:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.09736400226457756
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 518,
+        "fields": {
+            "datetime": "2019-10-03T12:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.1089372481519693
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 519,
+        "fields": {
+            "datetime": "2019-10-03T13:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.09983322417619617
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 520,
+        "fields": {
+            "datetime": "2019-10-03T14:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.07689386240026169
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 521,
+        "fields": {
+            "datetime": "2019-10-03T15:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.046857675820674474
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 522,
+        "fields": {
+            "datetime": "2019-10-03T16:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.018399603133320452
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 523,
+        "fields": {
+            "datetime": "2019-10-03T17:00:00",
+            "precipitation": 0.0051,
+            "reference_ET": -0.010904673464571253
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 524,
+        "fields": {
+            "datetime": "2019-10-03T18:00:00",
+            "precipitation": 0.0083,
+            "reference_ET": 0.018760586477202496
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 525,
+        "fields": {
+            "datetime": "2019-10-03T19:00:00",
+            "precipitation": 0.0051,
+            "reference_ET": 0.02046659894325864
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 526,
+        "fields": {
+            "datetime": "2019-10-03T20:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.02385956641783961
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 527,
+        "fields": {
+            "datetime": "2019-10-03T21:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.026376953779283084
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 528,
+        "fields": {
+            "datetime": "2019-10-03T22:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.02567161364844107
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 529,
+        "fields": {
+            "datetime": "2019-10-03T23:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.022931120907724093
+        }
+    },
+    {
+        "model": "weather.weatherrecord",
+        "pk": 530,
+        "fields": {
+            "datetime": "2019-11-20T00:00:00",
+            "precipitation": 0.0,
+            "reference_ET": 0.01918770044504148
+        }
+    }
+]
