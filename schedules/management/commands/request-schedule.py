@@ -9,8 +9,9 @@ class Command(BaseCommand):
     help = "Requests a scheduled run for all irrigation events due today"
 
     def add_arguments(self, parser):
-        parser.add_argument("--date", help="the day to request a schedule for. YYYY-MM-DD")
-    
+        parser.add_argument(
+            "--date", help="the day to request a schedule for. YYYY-MM-DD")
+
     def _get_date(self, datestr):
         if datestr is None:
             thedate = date.today()
@@ -35,7 +36,13 @@ class Command(BaseCommand):
             start = datetime.combine(date=thedate, time=program.time_start)
             for zone in program.zones.filter(enabled=True):
                 entry_count += 1
-                entry = RequestedRun(program=program, zone=zone, start=start, duration=program.duration)
+                entry = RequestedRun(
+                    program=program,
+                    zone=zone,
+                    start=start,
+                    duration=program.duration,
+                    priority=program.priority
+                )
                 entry.save()
 
         self.stdout.write(f"Date: {thedate}")
@@ -44,11 +51,13 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("SUCCESS."))
 
     def get_runonce_programs(self, thedate):
-        programs = Program.objects.filter(enabled=True, program_type="run-once", date_start=thedate)
+        programs = Program.objects.filter(
+            enabled=True, program_type="run-once", date_start=thedate)
         return programs
-    
+
     def get_periodic_programs(self, thedate):
-        programs = Program.objects.filter(enabled=True, program_type="periodic")
+        programs = Program.objects.filter(
+            enabled=True, program_type="periodic")
         programs = self._filter_start_end_dates(programs, thedate)
         programs = self._filter_period(programs, thedate)
         return programs
@@ -58,7 +67,7 @@ class Command(BaseCommand):
         programs = self._filter_start_end_dates(programs, thedate)
         programs = self._filter_weekday(programs, thedate)
         return programs
-    
+
     def _filter_start_end_dates(self, programs, thedate):
         return programs.exclude(date_start__gt=thedate).exclude(date_end__lt=thedate)
 
