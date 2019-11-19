@@ -12,4 +12,8 @@ class Settings(models.Model):
     mqtt_password = models.CharField(max_length=32)
 
     tank_capacity = models.FloatField()
-    
+
+
+class Log(models.Model):
+    datetime = models.DateTimeField()
+    message = models.CharField(max_length=128)
