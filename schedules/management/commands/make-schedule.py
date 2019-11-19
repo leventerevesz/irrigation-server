@@ -84,19 +84,20 @@ class Command(BaseCommand):
             lastscheduleddt = record.start + record.duration
         else:
             lastscheduleddt = firstrequestdt
-        possible_begin = max(firstrequestdt, lastscheduleddt)
+        possible_begin = max(firstrequestdt, lastscheduleddt) + timedelta(seconds=10)
 
         for request in requests_adapted_to_quota:
             start = max(request.start, possible_begin)
-            oldsched = ScheduledRun.objects.get(request=request)
-            oldsched.delete()
-            sched = ScheduledRun.objects.create(
+            
+            obj = ScheduledRun.objects.update_or_create(
                 request=request,
-                start=start,
-                duration=request.duration
+                defaults={
+                    "start": start,
+                    "duration": request.duration
+                }
             )
-            sched.save()
-            possible_begin = start + request.duration
+
+            possible_begin = start + request.duration + timedelta(seconds=10)
 
     def shorten_based_on_priority(self, request, shortening_factor):
         if (request.program.priority <= 3):
