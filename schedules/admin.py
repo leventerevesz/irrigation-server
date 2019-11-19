@@ -2,8 +2,18 @@ from django.contrib import admin
 
 from .models import RequestedRun, ScheduledRun, Action
 
-# Register your models here.
+class RequestedRunAdmin(admin.ModelAdmin):
+    list_display = ('id', 'program', 'zone', 'start', 'duration', 'priority')
 
-admin.site.register(RequestedRun)
-admin.site.register(ScheduledRun)
-admin.site.register(Action)
+class ScheduledRunAdmin(admin.ModelAdmin):
+    list_display = ('id', 'request', 'start', 'duration', 'progress')
+
+class ActionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'datetime', 'channel', 'topic', 'command', 'done')
+
+    def topic(self, action):
+        return f"{action.channel.topic}"
+
+admin.site.register(RequestedRun, RequestedRunAdmin)
+admin.site.register(ScheduledRun, ScheduledRunAdmin)
+admin.site.register(Action, ActionAdmin)

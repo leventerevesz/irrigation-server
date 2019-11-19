@@ -9,7 +9,7 @@ class RequestedRun(models.Model):
     priority = models.PositiveSmallIntegerField()
 
     def __str__(self):
-        return f"({self.id}) [{self.program.id}] {self.program.name} - [{self.zone.id}] {self.zone.name} @ {self.start}"
+        return f"({self.id}), program: ({self.program.id})"
 
 
 class ScheduledRun(models.Model):
@@ -19,7 +19,7 @@ class ScheduledRun(models.Model):
     progress = models.FloatField(default=0)
 
     def __str__(self):
-        return f"({self.id}) request:[{self.request.id}] - [{self.request.zone.id}] {self.request.zone.name} @ {self.start}"
+        return f"({self.id}), request: ({self.request.id})"
 
 class Action(models.Model):
     schedule = models.ForeignKey("schedules.ScheduledRun", on_delete=models.CASCADE)
@@ -29,4 +29,4 @@ class Action(models.Model):
     done = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"({self.id}) sched: {self.schedule.id} channel: {self.channel.id} command: {self.command} @ {self.datetime}"
+        return f"({self.id}), sched: ({self.schedule.id})"
