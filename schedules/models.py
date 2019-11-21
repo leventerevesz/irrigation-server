@@ -7,6 +7,7 @@ class RequestedRun(models.Model):
     start = models.DateTimeField()
     duration = models.DurationField()
     priority = models.PositiveSmallIntegerField()
+    done = models.BooleanField(default=False)
 
     def __str__(self):
         return f"({self.id}), program: ({self.program.id})"
