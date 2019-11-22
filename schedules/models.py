@@ -31,3 +31,12 @@ class Action(models.Model):
 
     def __str__(self):
         return f"({self.id}), sched: ({self.schedule.id})"
+    
+    def commandname(self):
+        if self.command == "o":
+            commandname = "open"
+        elif self.command == "c":
+            commandname = "close"
+        else:
+            commandname = "unknown"
+        return commandname

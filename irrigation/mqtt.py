@@ -13,4 +13,4 @@ client = mqtt.Client(client_id="Django")
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("192.168.0.244", 1883, 60)
+client.connect("127.0.0.1", 1883, 60)

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="w3-table w3-striped w3-border w3-margin-top">
+    <thead>
+        <tr class="w3-light-grey">
+            <th>zone</th>
+            <th>start</th>
+            <th>duration</th>
+        </tr>
+    </thead>
+    {% for schedule in object_list %}
+    <tr>
+        <td>{{ schedule.request.zone.name }}</td>
+        <td>{{ schedule.start.isoformat }}</td>
+        <td>{{ schedule.duration }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+{% endblock %}

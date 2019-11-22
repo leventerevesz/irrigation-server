@@ -2,47 +2,73 @@
 
 {% block content %}
 
-<h2>Current status of valves</h2>
-<ul>
-    <li>valve 1 [on]</li>
-    <li>valve 2 [off]</li>
-    <li>valve 3 [on]</li>
-    <li>valve 4 [off]</li>
-</ul>
+<h2>Weather</h2>
+{{ current_weather }}, {{ current_temperature }} °C
 
-<h2>Upcoming events</h2>
-<table>
-    <tr>
-        <th>event</th>
-        <th>time</th>
-    </tr>
-    <tr>
-        <td>run-once test event 1 start</td>
-        <td>2019-06-14 16:40</td>
-    </tr>
-    <tr>
-        <td>run-once test event 1 finish</td>
-        <td>2019-06-14 18:20</td>
-    </tr>
+<h2>Tank level</h2>
+{{ tank_level }}%
+
+<h2>Upcoming schedules</h2>
+<table class="w3-table w3-striped w3-border w3-margin-top">
+    <thead>
+        <tr class="w3-light-grey">
+            <th>zone</th>
+            <th>program</th>
+            <th>start</th>
+            <th>duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for schedule in schedule_list %}
+        <tr>
+            <td>{{ schedule.request.zone.name }}</td>
+            <td>{{ schedule.request.program.name }}</td>
+            <td>{{ schedule.start.isoformat }}</td>
+            <td>{{ schedule.duration }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
+
+<h2>Upcoming actions</h2>
+<table class="w3-table w3-striped w3-border w3-margin-top">
+    <thead>
+        <tr class="w3-light-grey">
+            <th>zone</th>
+            <th>channel</th>
+            <th>start</th>
+            <th>command</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for action in action_list %}
+        <tr>
+            <td>{{ action.schedule.request.zone.name }}</td>
+            <td>{{ action.channel.name }}</td>
+            <td>{{ action.datetime.isoformat }}</td>
+            <td>{{ action.commandname }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 
 <h2>Log</h2>
-<table>
-    <tr>
-        <th>entry</th>
-        <th>time</th>
-    </tr>
-    <tr>
-        <td>water level 60%</td>
-        <td>2019-06-14 16:40</td>
-    </tr>
-    <tr>
-        <td>run-once test event 1 finish</td>
-        <td>2019-06-13 18:20</td>
-    </tr>
+<table class="w3-table w3-striped w3-border w3-margin-top">
+    <thead>
+        <tr class="w3-light-grey">
+            <th>time</th>
+            <th>entry</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in log_list %}
+        <tr>
+            <td>{{ log.datetime }}</td>
+            <td>{{ log.message }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
-<a href="#">view logs</a>
-<h2>Weather</h2>
-Sunny, 28°C
 
 {% endblock %}
