@@ -47,7 +47,9 @@ class Command(BaseCommand):
         requested_water = self.requested_water(requests)
         
         #TODO calculate daily water quota
-        water_quota = 2
+        settings = Settings.objects.get(pk=1)
+        water_quota = settings.water_quota
+        self.stdout.write(f"Quota = {water_quota}. Requested = {requested_water}")
 
         requests_adapted_to_quota = []
         if (requested_water < water_quota):
@@ -70,7 +72,10 @@ class Command(BaseCommand):
 
             for request in requests_adapted_to_weather:
                 adapted = self.shorten_based_on_priority(request, shortening_factor)
-                requests_adapted_to_quota.append(adapted)
+                if (adapted.duration.seconds != 0):
+                    requests_adapted_to_quota.append(adapted)
+        
+                self.stdout.write(f" Min = {minimum_water:.3f}. Min.neccessary = {neccessary_requested_water:.3f}")
 
         # Scheduling
         if (len(requests_adapted_to_quota) == 0):
@@ -96,8 +101,8 @@ class Command(BaseCommand):
                     "duration": request.duration
                 }
             )
-
             possible_begin = start + request.duration + timedelta(seconds=10)
+        self.stdout.write(self.style.SUCCESS("SUCCESS."))
 
     def shorten_based_on_priority(self, request, shortening_factor):
         if (request.program.priority <= 3):
@@ -107,9 +112,8 @@ class Command(BaseCommand):
         elif (request.program.priority <= 8):
             request.duration = request.duration * (1 - 0.5 * shortening_factor)
         else:
-            request = None
+            request.duration = request.duration * 0
 
-        # round to seconds
         request.duration = self.round_timedelta(request.duration)
 
         return request
