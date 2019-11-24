@@ -75,7 +75,7 @@ class Command(BaseCommand):
                 if (adapted.duration.seconds != 0):
                     requests_adapted_to_quota.append(adapted)
         
-                self.stdout.write(f" Min = {minimum_water:.3f}. Min.neccessary = {neccessary_requested_water:.3f}")
+            self.stdout.write(f" Min = {minimum_water:.3f}. Min.neccessary = {neccessary_requested_water:.3f}")
 
         # Scheduling
         if (len(requests_adapted_to_quota) == 0):
