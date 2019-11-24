@@ -8,7 +8,43 @@
 <h2>Tank level</h2>
 {{ tank_level }}%
 
-<h2>Upcoming schedules</h2>
+<p>
+    <a class="w3-button w3-red" href="{% url 'home:closeallvalves' %}">
+    Stop all valves
+    </a>
+</p>
+
+<h2>Upcoming irrigation events</h2>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['timeline'] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var container = document.getElementById('timeline');
+        var chart = new google.visualization.Timeline(container);
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn({ type: 'string', id: 'Zone' });
+        dataTable.addColumn({ type: 'string', id: 'Program'});
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+        dataTable.addRows([
+            //{% for schedule in schedule_list %}
+            ['{{schedule.request.zone.name}}', '{{schedule.request.program.name}}', new Date("{{schedule.start.isoformat}}"), new Date("{{schedule.end.isoformat}}")],
+            //{% endfor %}
+        ]);
+        var options = {
+            timeline: { groupByRowLabel: false, height: 300 }
+        };
+
+        chart.draw(dataTable, options);
+    }
+</script>
+<div>
+    <div id="timeline", style="height:300px;"></div>
+
+</div>
+
 <table class="w3-table w3-striped w3-border w3-margin-top">
     <thead>
         <tr class="w3-light-grey">

@@ -22,6 +22,9 @@ class ScheduledRun(models.Model):
     def __str__(self):
         return f"({self.id}), request: ({self.request.id})"
 
+    def end(self):
+        return (self.start + self.duration)
+
 class Action(models.Model):
     schedule = models.ForeignKey("schedules.ScheduledRun", on_delete=models.CASCADE)
     channel = models.ForeignKey("controllers.Channel", on_delete=models.CASCADE)

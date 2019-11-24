@@ -18,10 +18,12 @@ from django.urls import path
 from home.views import (
     AboutView,
     DashboardView,
+    closeAllValvesView
 )
 
 app_name = "home"
 urlpatterns = [
     path("", DashboardView.as_view(), name="home"),
     path("about/", AboutView.as_view(), name="about"),
+    path("closeallvalves/", closeAllValvesView, name="closeallvalves"),
 ]

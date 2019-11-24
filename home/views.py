@@ -1,11 +1,14 @@
 """Main views for the site"""
 
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 from django.views import View
 from django.utils import timezone
+from django.urls import reverse
 
 from schedules.models import ScheduledRun, Action
 from home.models import Log
+from controllers.models import Channel
+from irrigation import mqtt
 
 
 class DashboardView(View):
@@ -44,3 +47,12 @@ class AboutView(View):
             "pagetitle": "About"
         }
         return render(request, self.template_name, context)
+
+def closeAllValvesView(request):
+    channels = Channel.objects.all()
+    for channel in channels:
+        topic = "/commands/" + channel.topic
+        data = "c"
+        mqtt.client.publish(topic, data, qos=1)
+
+    return HttpResponseRedirect(reverse("home:home"))
