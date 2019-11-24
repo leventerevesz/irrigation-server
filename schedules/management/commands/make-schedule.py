@@ -35,21 +35,24 @@ class Command(BaseCommand):
         cumulative_reference_ET = sum([record.reference_ET for record in weather_records])
         cumulative_precipitation = sum([record.precipitation for record in weather_records])
 
+        self.stdout.write(f"Reference ET = {cumulative_reference_ET:.2f}. Precipitation = {cumulative_precipitation:.2f}")
+
         requests_adapted_to_weather = []
         for request in requests:
             adapted_request = self.adapt_to_weather(request, cumulative_reference_ET, cumulative_precipitation)
             if adapted_request is not None:
                 requests_adapted_to_weather.append(adapted_request)
 
+        self.stdout.write(f"Weather adjusted schedules: {len(requests_adapted_to_weather)}")
 
         # Adapt to water quota
         # stored_water = self.get_stored_water(thedate)
-        requested_water = self.requested_water(requests)
+        requested_water = self.requested_water(requests_adapted_to_weather)
         
         #TODO calculate daily water quota
         settings = Settings.objects.get(pk=1)
         water_quota = settings.water_quota
-        self.stdout.write(f"Quota = {water_quota}. Requested = {requested_water}")
+        self.stdout.write(f"Quota = {water_quota}. Requested = {requested_water:3f}")
 
         requests_adapted_to_quota = []
         if (requested_water < water_quota):
@@ -75,7 +78,9 @@ class Command(BaseCommand):
                 if (adapted.duration.seconds != 0):
                     requests_adapted_to_quota.append(adapted)
         
-            self.stdout.write(f" Min = {minimum_water:.3f}. Min.neccessary = {neccessary_requested_water:.3f}")
+            self.stdout.write(f"Min = {minimum_water:.3f}. Min.neccessary = {neccessary_requested_water:.3f}")
+
+        self.stdout.write(f"Quota adjusted schedules: {len(requests_adapted_to_quota)}")
 
         # Scheduling
         if (len(requests_adapted_to_quota) == 0):
@@ -129,24 +134,20 @@ class Command(BaseCommand):
 
         if (request.program.adaptivity == "bypass"):
             treshold = 0.5 # mm
-            if (water_need > treshold):
-                return request
-            else:
-                return None
-
+            if (water_need < treshold):
+                request = None
         elif (request.program.adaptivity == "ET"):
-            intensity = request.zone.intensity
-            programmed_duration = request.duration
-            programmed_irrigation = programmed_duration.seconds / 3600 * intensity
-            
-            adapted_duration = timedelta(hours=(water_need / intensity))
-            requested_duration = self.limit_duration(programmed_duration, adapted_duration)
-            request.duration = self.round_timedelta(requested_duration)
-
-            return request
-        
-        else: # adaptivity="none"
-            return request
+            if water_need < 0:
+                request = None
+            else:
+                intensity = request.zone.intensity
+                programmed_duration = request.duration
+                programmed_irrigation = programmed_duration.seconds / 3600 * intensity
+                
+                adapted_duration = timedelta(hours=(water_need / intensity))
+                requested_duration = self.limit_duration(programmed_duration, adapted_duration)
+                request.duration = self.round_timedelta(requested_duration)
+        return request
 
     def limit_duration(self, programmed_duration, adapted_duration):
         lower_bound = 0.5 * programmed_duration
