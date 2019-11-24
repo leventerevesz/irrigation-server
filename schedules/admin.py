@@ -17,7 +17,10 @@ class ScheduledRunAdmin(admin.ModelAdmin):
     start_iso.short_description = "start"
 
 class ActionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'datetime_iso', 'channel', 'topic', 'command', 'done')
+    list_display = ('id', 'schedule_id', 'datetime_iso', 'channel', 'topic', 'command', 'done')
+
+    def schedule_id(self, action):
+        return f"{action.schedule.id}"
 
     def datetime_iso(self, action):
         return action.datetime.strftime("%Y-%m-%d %H:%M:%S")
