@@ -3,13 +3,24 @@ from django.contrib import admin
 from .models import RequestedRun, ScheduledRun, Action
 
 class RequestedRunAdmin(admin.ModelAdmin):
-    list_display = ('id', 'program', 'zone', 'start', 'duration', 'priority')
+    list_display = ('id', 'program', 'zone', 'start_iso', 'duration', 'priority')
+
+    def start_iso(self, requestedrun):
+        return requestedrun.start.strftime("%Y-%m-%d %H:%M:%S")
+    start_iso.short_description = "start"
 
 class ScheduledRunAdmin(admin.ModelAdmin):
-    list_display = ('id', 'request', 'start', 'duration', 'progress')
+    list_display = ('id', 'request', 'start_iso', 'duration', 'progress')
+
+    def start_iso(self, scheduledrun):
+        return scheduledrun.start.strftime("%Y-%m-%d %H:%M:%S")
+    start_iso.short_description = "start"
 
 class ActionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'datetime', 'channel', 'topic', 'command', 'done')
+    list_display = ('id', 'datetime_iso', 'channel', 'topic', 'command', 'done')
+
+    def datetime_iso(self, action):
+        return action.datetime.strftime("%Y-%m-%d %H:%M:%S")
 
     def topic(self, action):
         return f"{action.channel.topic}"
