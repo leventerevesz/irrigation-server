@@ -13,20 +13,20 @@
         <td>{{ object.program_type }}</td>
     </tr>
     <tr>
-        <th>channels</th>
+        <th>zones</th>
         <td>
-            {% for channel in object.channels.all %}
-                ({{ channel.id }}) {{ channel.name }} <br>
+            {% for zone in object.zones.all %}
+                {{ zone.name }} <br>
             {% endfor %}
         </td>
     </tr>
     <tr>
         <th>start</th>
-        <td>{{ object.date_start }}</td>
+        <td>{{ object.date_start|date:"Y-m-d" }}</td>
     </tr>
     <tr>
         <th>end</th>
-        <td>{{ object.date_end }}</td>
+        <td>{{ object.date_end|date:"Y-m-d" }}</td>
     </tr>
     {% if object.program_type == "weekly" %}
     <tr>
@@ -34,20 +34,24 @@
         <td>{{ object.days_of_week }}</td>
     </tr>
     {% endif %}
-    <tr>
-        <th>time start</th>
-        <td>{{ object.time_start }}</td>
-    </tr>
-    <tr>
-        <th>duration</th>
-        <td>{{ object.duration }}</td>
-    </tr>
     {% if object.program_type == "periodic" %}
     <tr>
         <th>period</th>
         <td>{{ object.period }}</td>
     </tr>
     {% endif %}
+    <tr>
+        <th>time</th>
+        <td>{{ object.time_start|time:"H:i" }}</td>
+    </tr>
+    <tr>
+        <th>duration</th>
+        <td>{{ object.duration }}</td>
+    </tr>
+    <tr>
+        <th>weather adaptivity</th>
+        <td>{{ object.adaptivity }}</td>
+    </tr>
     <tr>
         <th>priority</th>
         <td>{{ object.priority }}</td>
