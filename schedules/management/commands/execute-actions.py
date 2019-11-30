@@ -26,7 +26,6 @@ class Command(BaseCommand):
         time_end = time_begin + timedelta(minutes=1)
 
         actions = Action.objects.filter(datetime__gte=time_begin, datetime__lt=time_end)
-        #breakpoint()
         
         for action in actions:
             delay = (action.datetime - time_begin).seconds
@@ -37,4 +36,5 @@ class Command(BaseCommand):
         topic = "/commands/" + action.channel.topic
         data = action.command
         self.stdout.write(f"Executing action {action.id}: topic: {topic} data: {data}")
-        mqtt.client.publish(topic, data, qos=1)
+        info = mqtt.client.publish(topic, data, qos=1)
+        print("Published: {}".format(info.is_published()))
